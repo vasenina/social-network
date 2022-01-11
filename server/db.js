@@ -48,3 +48,18 @@ module.exports.updateUserbyIDwithPassword = (
     const params = [id, first, last, email, password];
     return db.query(q, params);
 };
+
+module.exports.getPassword = (email) => {
+    console.log("DB: i'm getting a password for this email", email);
+    const q = `SELECT password FROM users WHERE email =$1;`;
+    const params = [email];
+    return db.query(q, params);
+};
+
+module.exports.getUserId = (email) => {
+    const q = `SELECT id AS user_id , last , first
+            FROM users 
+            WHERE email = $1;`;
+    const params = [email];
+    return db.query(q, params);
+};

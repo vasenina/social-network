@@ -1,6 +1,19 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
 body {
-    background-color: ghostwhite;
+    background-color: pink;
 }
 .error {
     color: red;
+}
+
+.header {
+    height: 80px;
+    background-color: lightsalmon;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 32px 8px;
 }

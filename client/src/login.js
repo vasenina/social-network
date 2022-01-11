@@ -14,8 +14,8 @@ export default class Registration extends Component {
     }
     handleChange({ target }) {
         console.log("input value changed");
-        console.log("value typed", target.value);
-        console.log("target name", target.name);
+        // console.log("value typed", target.value);
+        //console.log("target name", target.name);
         //update state
         this.setState(
             {
@@ -31,18 +31,13 @@ export default class Registration extends Component {
         e.preventDefault();
         console.log("user wants to submit");
         //send data to server
-        if (
-            !this.state.last ||
-            !this.state.first ||
-            !this.state.email ||
-            !this.state.password
-        ) {
+        if (!this.state.email || !this.state.password) {
             this.setState({ error: "Fill all fields" }, () => {
                 console.log("Submit fields checking", this.state);
             });
             return;
         }
-        fetch("/register.json", {
+        fetch("/login.json", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -74,25 +69,11 @@ export default class Registration extends Component {
     render() {
         return (
             <>
-                <h1>Registration</h1>
+                <h1>Log in</h1>
                 {this.state.error && (
                     <h2 className="error">{this.state.error}</h2>
                 )}
                 <form>
-                    <input
-                        onChange={({ target }) => this.handleChange({ target })}
-                        name="first"
-                        placeholder="First Name"
-                        type="text"
-                        required
-                    />
-                    <input
-                        name="last"
-                        placeholder="Last Name"
-                        type="text"
-                        onChange={this.handleChange}
-                        required
-                    />
                     <input
                         name="email"
                         placeholder="your@email"
@@ -107,9 +88,9 @@ export default class Registration extends Component {
                         onChange={this.handleChange}
                         required
                     />
-                    <button onClick={this.handleSubmit}>Register</button>
+                    <button onClick={this.handleSubmit}>Login</button>
                 </form>
-                <Link to="/login">Click here to Log in!</Link>
+                <Link to="/">Register here!</Link>
             </>
         );
     }
