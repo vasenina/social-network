@@ -1,9 +1,15 @@
+:root {
+    --main-bg-color: pink;
+    --offset: 8px;
+    --offset-2: 16px;
+}
+
 * {
     margin: 0;
     box-sizing: border-box;
 }
 body {
-    background-color: pink;
+    background-color: var(--main-bg-color);
 }
 .error {
     color: red;
@@ -16,4 +22,53 @@ body {
     justify-content: space-between;
     align-items: baseline;
     padding: 32px 8px;
+}
+
+.input_group {
+    position: relative;
+    padding: 16px 0 0;
+    margin-top: 16px;
+    margin-bottom: var(--offset-2);
+}
+
+.input_field {
+    font-family: inherit;
+    width: 200px;
+    border: 0;
+    border-bottom: 1px solid violet;
+    outline: 0;
+    font-size: 16px;
+    color: #212121;
+    padding: 8px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.input_field::placeholder {
+    color: transparent;
+}
+
+.input_field:placeholder-shown ~ .input_label {
+    font-size: 16px;
+    cursor: text;
+    top: 20px;
+}
+
+label,
+.input_field:focus ~ .input_label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 12px;
+    color: #9b9b9b;
+}
+
+.input_field:focus ~ .input_label {
+    color: #009788;
+}
+
+.input_field:focus {
+    padding-bottom: 6px;
+    border-bottom: 2px solid #009788;
 }

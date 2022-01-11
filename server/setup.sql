@@ -9,4 +9,11 @@ CREATE TABLE users(
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
 
+CREATE TABLE reset_codes(
+      id SERIAL PRIMARY KEY,
+      email VARCHAR(255) NOT NULL UNIQUE REFERENCES users(email),
+      code VARCHAR(255) NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
   

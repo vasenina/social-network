@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
+import InputField from "./UI/inputField";
 
 export default class Registration extends Component {
     constructor(props) {
@@ -7,6 +8,7 @@ export default class Registration extends Component {
         this.state = {};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.testChange = this.testChange.bind(this);
     }
 
     componentDidMount() {
@@ -14,9 +16,22 @@ export default class Registration extends Component {
     }
     handleChange({ target }) {
         console.log("input value changed");
+        this.setState(
+            {
+                [target.name]: target.value,
+            },
+            () => {
+                console.log("State after handleChange", this.state);
+            }
+        );
+    }
+
+    testChange({ target }) {
+        //console.log("test", target);
         // console.log("value typed", target.value);
         //console.log("target name", target.name);
         //update state
+
         this.setState(
             {
                 [target.name]: target.value,
@@ -91,7 +106,17 @@ export default class Registration extends Component {
                     <button onClick={this.handleSubmit}>Login</button>
                 </form>
                 <Link to="/">Register here!</Link>
+                <Link to="/reset">Change your password!</Link>
+                <InputField
+                    label="Test"
+                    name="test"
+                    type="text"
+                    onChange={this.testChange}
+                />
             </>
         );
     }
 }
+
+//onChange={({ target }) => this.testChange({ target })}
+//({ target }) => this.handleChange({ target });

@@ -63,3 +63,20 @@ module.exports.getUserId = (email) => {
     const params = [email];
     return db.query(q, params);
 };
+
+module.exports.getUserbyEmail = (email) => {
+    console.log("DB: i'm getting a user for this email", email);
+    const q = `SELECT id FROM users WHERE email =$1;`;
+    const params = [email];
+    return db.query(q, params);
+};
+module.exports.addCode = (code, email) => {
+    console.log("DB: Adding a new code", code);
+    const q = `INSERT INTO reset_codes (code, email)
+                VALUES ($1, $2)
+                ON CONFLICT (email)
+                DO UPDATE SET code = $1, email = $2
+                RETURNING code;`;
+    const params = [code, email];
+    return db.query(q, params);
+};

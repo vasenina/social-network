@@ -6,6 +6,8 @@ const db = require("./db");
 const { hash, compare } = require("./bc");
 const cookieSession = require("cookie-session");
 
+const { resetPass } = require("./routers/resetPass.js");
+
 app.use(compression());
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
@@ -19,6 +21,7 @@ app.use(
         sameSite: true,
     })
 );
+app.use(resetPass);
 
 app.get("/clear", (req, res) => {
     req.session = null;
