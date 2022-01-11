@@ -42,4 +42,37 @@ resetPass.post("/resetPass/start", (req, res) => {
         });
 });
 
+resetPass.post("/resetPass/verify", (req, res) => {
+    console.log("user wants to verify his code", req.body);
+    db.getCodebyEmail(req.body.email)
+        .then(({ rows }) => {
+            console.log(
+                "code from db",
+                rows[0].code,
+                "code from request",
+                req.body.code
+            );
+            if (req.body.code == rows[0].code) {
+                console.log("codes are the same");
+                return hash(req.body.password);
+            }
+        })
+        .then((hashedPW) => {
+            console.log("hashedPW", hashedPW);
+            return db.changePassword(req.body.email, hashedPW);
+        })
+        .then(() => {
+            console.log("password changed");
+            res.json({
+                success: true,
+            });
+        })
+        .catch((err) => {
+            console.log("error in changing a password", err);
+            res.json({
+                success: false,
+            });
+        });
+});
+
 module.exports.resetPass = resetPass;

@@ -12,7 +12,7 @@ export default class Registration extends Component {
     }
 
     componentDidMount() {
-        console.log("registration just mounted");
+        console.log("login just mounted");
     }
     handleChange({ target }) {
         console.log("input value changed");
@@ -89,34 +89,24 @@ export default class Registration extends Component {
                     <h2 className="error">{this.state.error}</h2>
                 )}
                 <form>
-                    <input
+                    <InputField
+                        label="Email"
                         name="email"
-                        placeholder="your@email"
                         type="email"
                         onChange={this.handleChange}
-                        required
                     />
-                    <input
+                    <InputField
+                        label="Password"
                         name="password"
-                        placeholder="Password"
                         type="password"
                         onChange={this.handleChange}
-                        required
                     />
+
                     <button onClick={this.handleSubmit}>Login</button>
                 </form>
                 <Link to="/">Register here!</Link>
                 <Link to="/reset">Change your password!</Link>
-                <InputField
-                    label="Test"
-                    name="test"
-                    type="text"
-                    onChange={this.testChange}
-                />
             </>
         );
     }
 }
-
-//onChange={({ target }) => this.testChange({ target })}
-//({ target }) => this.handleChange({ target });

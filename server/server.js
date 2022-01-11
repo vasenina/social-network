@@ -30,6 +30,13 @@ app.get("/clear", (req, res) => {
     return;
 });
 
+app.get("/logout", (req, res) => {
+    req.session = null;
+    console.log("Clear cookies", req.session);
+    res.redirect("/");
+    return;
+});
+
 app.post("/register.json", function (req, res) {
     //console.log(req.body);
 

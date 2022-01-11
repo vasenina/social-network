@@ -16,4 +16,3 @@ CREATE TABLE reset_codes(
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
 
-  

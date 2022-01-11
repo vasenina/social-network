@@ -1,5 +1,6 @@
 import { Component } from "react";
 import InputField from "./UI/inputField";
+import { Link } from "react-router-dom";
 
 export default class ResetPasswords extends Component {
     constructor(props) {
@@ -7,6 +8,7 @@ export default class ResetPasswords extends Component {
         this.state = { stage: 1 };
         this.handleChange = this.handleChange.bind(this);
         this.checkEmail = this.checkEmail.bind(this);
+        this.changePassword = this.changePassword.bind(this);
     }
 
     handleChange({ target }) {
@@ -22,7 +24,7 @@ export default class ResetPasswords extends Component {
     }
     checkEmail() {
         if (!this.state.email) {
-            this.setState({ error: "Fill all fields" }, () => {
+            this.setState({ error: "Please write your email" }, () => {
                 console.log("Please write your email", this.state);
             });
             return;
@@ -58,6 +60,52 @@ export default class ResetPasswords extends Component {
             .catch((err) => {
                 console.log("error in fetch reset pass", err);
                 //handle error message
+            });
+    }
+    changePassword() {
+        if (!this.state.code || !this.state.password) {
+            this.setState({ error: "Fill all fields" }, () => {
+                console.log("Please write your email", this.state);
+            });
+            return;
+        }
+
+        fetch("/resetPass/verify", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(this.state),
+        })
+            .then((resp) => resp.json())
+            .then((data) => {
+                console.log("response data", data);
+                //error handline here
+                if (data.success == false) {
+                    this.setState(
+                        { error: "Smth is wrong, please try again" },
+                        () => {
+                            console.log("state change password", this.state);
+                        }
+                    );
+                } else {
+                    //console.log("User with Id added", data.id);
+                    console.log("data", data);
+                    //location.reload();
+                    this.setState({ stage: 3, error: null }, () => {
+                        console.log("state change password", this.state);
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log("error in fetch changing pass", err);
+                //handle error message
+                this.setState(
+                    { error: "Smth is wrong, please try again" },
+                    () => {
+                        console.log("state change password", this.state);
+                    }
+                );
             });
     }
 
@@ -100,6 +148,13 @@ export default class ResetPasswords extends Component {
                         <button onClick={this.changePassword}>
                             Change Password
                         </button>
+                    </>
+                )}
+                {this.state.stage === 3 && (
+                    <>
+                        <h2>Success</h2>
+
+                        <Link to="/login">Click here to Log in!</Link>
                     </>
                 )}
             </>

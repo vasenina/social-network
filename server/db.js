@@ -75,8 +75,25 @@ module.exports.addCode = (code, email) => {
     const q = `INSERT INTO reset_codes (code, email)
                 VALUES ($1, $2)
                 ON CONFLICT (email)
-                DO UPDATE SET code = $1, email = $2
+                DO UPDATE SET code = $1, email = $2, created_at  = CURRENT_TIMESTAMP
                 RETURNING code;`;
     const params = [code, email];
+    return db.query(q, params);
+};
+
+module.exports.getCodebyEmail = (email) => {
+    console.log("DB: i'm getting a code for this email", email);
+    const q = `SELECT code FROM reset_codes 
+    WHERE email =$1 AND CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes';`;
+    const params = [email];
+    return db.query(q, params);
+};
+
+module.exports.changePassword = (email, hashedPW) => {
+    console.log("DB: i'm changing a pw for this email", email);
+    const q = `UPDATE users 
+    SET password = $2 
+    WHERE email = $1;`;
+    const params = [email, hashedPW];
     return db.query(q, params);
 };
