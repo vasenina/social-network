@@ -7,6 +7,7 @@ const { hash, compare } = require("./bc");
 const cookieSession = require("cookie-session");
 
 const { resetPass } = require("./routers/resetPass.js");
+const { userProfile } = require("./routers/userProfile.js");
 
 app.use(compression());
 
@@ -22,6 +23,7 @@ app.use(
     })
 );
 app.use(resetPass);
+app.use(userProfile);
 
 app.get("/clear", (req, res) => {
     req.session = null;
@@ -99,8 +101,8 @@ app.post("/login.json", (req, res) => {
             console.log("users id and sign id:", rows[0].user_id);
             //here we should set cookies
             req.session.userId = rows[0].user_id;
-            req.session.last = rows[0].last;
-            req.session.first = rows[0].first;
+            //req.session.last = rows[0].last;
+            //req.session.first = rows[0].first;
             res.json({
                 success: true,
             });
@@ -119,9 +121,27 @@ app.post("/login.json", (req, res) => {
 app.get("/user/id.json", function (req, res) {
     res.json({
         userId: req.session.userId,
-        last: req.session.last,
-        first: req.session.first,
+        //last: req.session.last,
+        // first: req.session.first,
     });
+});
+
+app.get("/user/:id", function (req, res) {
+    const userId = req.params.id;
+    db.getUserById(userId)
+        .then(({ rows }) => {
+            console.log("user data from DB", rows[0]);
+            res.json({
+                success: true,
+                first: rows[0].first,
+                last: rows[0].last,
+                imageUrl: rows[0].image_url,
+            });
+        })
+        .catch((err) => {
+            res.json({ success: false });
+            console.log("error in getUserByID", err);
+        });
 });
 
 app.get("*", function (req, res) {

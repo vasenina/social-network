@@ -7,6 +7,8 @@
 * {
     margin: 0;
     box-sizing: border-box;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
 }
 body {
     background-color: var(--main-bg-color);
@@ -21,7 +23,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    padding: 32px 8px;
+    padding: 24px 8px;
 }
 
 .input_group {
@@ -71,4 +73,57 @@ label,
 .input_field:focus {
     padding-bottom: 6px;
     border-bottom: 2px solid #009788;
+}
+
+.img_profile_small {
+    width: 50px;
+    height: 50px;
+}
+
+.img_profile_big {
+    width: 150px;
+    height: 150px;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
+}
+
+.modal {
+    background-color: white;
+    z-index: 3;
+    padding: 10px 30px;
+    border-radius: 1px;
+    width: 60%;
+}
+.modal h2 {
+    margin-bottom: var(--offset-2);
+}
+.close-btn {
+    cursor: pointer;
+    float: right;
+    display: block;
+}
+
+.bio {
+    background-color: lightseagreen;
+    width: 70%;
+    padding: 20px 20px;
+}
+.navigation {
+    width: 30%;
+}
+.main-body {
+    display: flex;
+    flex-direction: row;
 }

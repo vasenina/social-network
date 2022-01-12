@@ -64,6 +64,14 @@ module.exports.getUserId = (email) => {
     return db.query(q, params);
 };
 
+module.exports.getUserById = (id) => {
+    const q = `SELECT  last , first, image_url
+            FROM users 
+            WHERE id = $1;`;
+    const params = [id];
+    return db.query(q, params);
+};
+
 module.exports.getUserbyEmail = (email) => {
     console.log("DB: i'm getting a user for this email", email);
     const q = `SELECT id FROM users WHERE email =$1;`;
@@ -95,5 +103,14 @@ module.exports.changePassword = (email, hashedPW) => {
     SET password = $2 
     WHERE email = $1;`;
     const params = [email, hashedPW];
+    return db.query(q, params);
+};
+
+module.exports.addPictureById = (id, url) => {
+    console.log("DB: i'm changing a pw for this id", id);
+    const q = `UPDATE users 
+            SET image_url=$2
+            WHERE id =$1;`;
+    const params = [id, url];
     return db.query(q, params);
 };
