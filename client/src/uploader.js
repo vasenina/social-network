@@ -60,7 +60,7 @@ export default class Uploader extends Component {
     render() {
         return (
             <div className="overlay" onClick={this.closeModal}>
-                <div className="modal">
+                <div className="modal shadow ">
                     <span className="close-btn" onClick={this.props.close}>
                         X
                     </span>

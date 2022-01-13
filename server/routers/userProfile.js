@@ -65,6 +65,28 @@ userProfile.post(
     }
 );
 
+userProfile.post("/changebio/:id", (req, res) => {
+    console.log("user changed a bio:", req.body, req.params);
+    //
+
+    const { id } = req.params;
+
+    //console.log(url, username, title, description);
+    db.changeBioById(id, req.body.newBio)
+        .then(() => {
+            // console.log("got this img id", rows[0].id);
+            res.json({
+                success: true,
+            });
+        })
+        .catch((err) => {
+            console.log("err in changing bio in db", err);
+            res.json({
+                success: false,
+            });
+        });
+});
+
 userProfile.get("/user/id.json", function (req, res) {
     res.json({
         userId: req.session.userId,
@@ -83,6 +105,7 @@ userProfile.get("/user/:id", function (req, res) {
                 first: rows[0].first,
                 last: rows[0].last,
                 imageUrl: rows[0].image_url,
+                bio: rows[0].bio,
             });
         })
         .catch((err) => {

@@ -136,6 +136,7 @@ app.get("/user/:id", function (req, res) {
                 first: rows[0].first,
                 last: rows[0].last,
                 imageUrl: rows[0].image_url,
+                bio: rows[0].bio,
             });
         })
         .catch((err) => {

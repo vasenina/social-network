@@ -1,4 +1,5 @@
 import ProfilePic from "./profilePic";
+import Logo from "./UI/logo";
 export default function Header({ first, last, imageUrl, toggleUploader }) {
     // function logout() {
     //     console.log("logout");
@@ -8,11 +9,8 @@ export default function Header({ first, last, imageUrl, toggleUploader }) {
     // }
     return (
         <div className="header">
-            <h1>Social Network</h1>
+            <Logo />
             <div>
-                <span>
-                    {first} {last}
-                </span>
                 <ProfilePic
                     imageUrl={imageUrl}
                     first={first}

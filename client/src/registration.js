@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
+import InputField from "./UI/inputField";
 
 export default class Registration extends Component {
     constructor(props) {
@@ -73,44 +74,41 @@ export default class Registration extends Component {
     }
     render() {
         return (
-            <>
+            <div className="registration_page">
                 <h1>Registration</h1>
                 {this.state.error && (
                     <h2 className="error">{this.state.error}</h2>
                 )}
-                <form>
-                    <input
-                        onChange={({ target }) => this.handleChange({ target })}
+                <form className="register_form">
+                    <InputField
+                        label="First Name"
                         name="first"
-                        placeholder="First Name"
-                        type="text"
-                        required
-                    />
-                    <input
-                        name="last"
-                        placeholder="Last Name"
                         type="text"
                         onChange={this.handleChange}
-                        required
                     />
-                    <input
+                    <InputField
+                        label="Last Name"
+                        name="last"
+                        type="text"
+                        onChange={this.handleChange}
+                    />
+                    <InputField
+                        label="Email"
                         name="email"
-                        placeholder="your@email"
                         type="email"
                         onChange={this.handleChange}
-                        required
                     />
-                    <input
+                    <InputField
+                        label="Password"
                         name="password"
-                        placeholder="Password"
                         type="password"
                         onChange={this.handleChange}
-                        required
                     />
+
                     <button onClick={this.handleSubmit}>Register</button>
                 </form>
                 <Link to="/login">Click here to Log in!</Link>
-            </>
+            </div>
         );
     }
 }

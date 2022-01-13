@@ -6,7 +6,8 @@ export default function ProfilePic({
     size,
 }) {
     const picUrl = imageUrl || "default_profile.png";
-    const imgClass = size == "small" ? "img_profile_small" : "img_profile_big";
+    const imgClass =
+        size == "small" ? "img_profile_small" : "img_profile_big shadow";
     return (
         <>
             <img

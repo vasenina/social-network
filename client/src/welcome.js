@@ -2,11 +2,12 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Registration from "./registration";
 import ResetPassword from "./resetPassword";
 import Login from "./login";
+import Logo from "./UI/logo";
 
 export default function Welcome() {
     return (
         <div id="welcome">
-            <h1>Welcome!</h1>
+            <Logo />
 
             <BrowserRouter>
                 <div>

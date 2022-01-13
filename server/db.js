@@ -65,7 +65,7 @@ module.exports.getUserId = (email) => {
 };
 
 module.exports.getUserById = (id) => {
-    const q = `SELECT  last , first, image_url
+    const q = `SELECT  last , first, image_url, bio
             FROM users 
             WHERE id = $1;`;
     const params = [id];
@@ -103,6 +103,15 @@ module.exports.changePassword = (email, hashedPW) => {
     SET password = $2 
     WHERE email = $1;`;
     const params = [email, hashedPW];
+    return db.query(q, params);
+};
+
+module.exports.changeBioById = (id, bio) => {
+    console.log("DB: i'm changing bio for this id", id);
+    const q = `UPDATE users 
+    SET bio = $2 
+    WHERE id = $1;`;
+    const params = [id, bio];
     return db.query(q, params);
 };
 

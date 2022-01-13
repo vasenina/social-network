@@ -113,7 +113,7 @@ export default class ResetPasswords extends Component {
         return (
             <>
                 {this.state.stage === 1 && (
-                    <>
+                    <form className="center_form">
                         <h2>Write your email</h2>
                         {this.state.error && (
                             <h2 className="error">{this.state.error}</h2>
@@ -125,10 +125,11 @@ export default class ResetPasswords extends Component {
                             onChange={this.handleChange}
                         />
                         <button onClick={this.checkEmail}>Confirm Email</button>
-                    </>
+                        <Link to="/login">Click here to Log in!</Link>
+                    </form>
                 )}
                 {this.state.stage === 2 && (
-                    <>
+                    <form className="center_form">
                         <h2>Write your code</h2>
                         {this.state.error && (
                             <h2 className="error">{this.state.error}</h2>
@@ -148,7 +149,7 @@ export default class ResetPasswords extends Component {
                         <button onClick={this.changePassword}>
                             Change Password
                         </button>
-                    </>
+                    </form>
                 )}
                 {this.state.stage === 3 && (
                     <>

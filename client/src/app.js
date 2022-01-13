@@ -13,6 +13,7 @@ export default class App extends Component {
         this.toggleUploader = this.toggleUploader.bind(this);
         this.logName = this.logName.bind(this);
         this.changePic = this.changePic.bind(this);
+        this.changeBioState = this.changeBioState.bind(this);
     }
 
     //here will be a fetch where we can get a data
@@ -50,6 +51,12 @@ export default class App extends Component {
             console.log("State after changepic", this.state);
         });
     }
+    changeBioState(bio) {
+        console.log("app.js: i have new bio", bio);
+        this.setState({ bio: bio }, () => {
+            console.log("State after changeBio", this.state);
+        });
+    }
     render() {
         return (
             <div>
@@ -66,6 +73,9 @@ export default class App extends Component {
                         last={this.state.last}
                         imageUrl={this.state.imageUrl}
                         toggleUploader={this.toggleUploader}
+                        bio={this.state.bio}
+                        changeBio={this.changeBioState}
+                        userId={this.props.user_id}
                     />
                 </div>
 
