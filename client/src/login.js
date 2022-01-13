@@ -73,7 +73,7 @@ export default class Registration extends Component {
                 } else {
                     console.log("User with Id added", data.id);
                     console.log("data", data);
-                    location.reload();
+                    location.assign("/");
                 }
             })
             .catch((err) => {

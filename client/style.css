@@ -4,6 +4,8 @@
     --rose-color: #ec8298;
     --green-color: #68c08d;
     --bordo-color: #7d4c6d;
+    --blue-color: #55b6af;
+    --light-blue-color: #b5e8e5;
     --offset: 8px;
     --offset-2: 16px;
 }
@@ -29,6 +31,8 @@ body {
     justify-content: space-between;
     align-items: baseline;
     padding: 24px 8px;
+    border-bottom: 1px solid var(--dark-color);
+    position: sticky;
 }
 .logo h1 {
     font-family: "Black Ops One", cursive;
@@ -39,13 +43,42 @@ body {
     font-size: 48px;
 }
 
+ul {
+    list-style: none;
+}
+.nav_item {
+    border: 3px solid var(--dark-color);
+    width: 120px;
+    margin: var(--offset-2) var(--offset);
+    padding: var(--offset) 4px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+.nav_item:hover {
+    cursor: pointer;
+    background-color: var(--yellow-color);
+}
+
 button {
     background-color: var(--green-color);
-    color: white;
+    color: var(--dark-color);
+    width: 150px;
     padding: var(--offset) var(--offset-2);
     font-size: 16px;
+    margin: var(--offset) 0;
+    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px,
+        4px 4px 0px 0px, 5px 5px 0px 0px;
 }
-.cancel {
+button:hover {
+    border-color: var(--yellow-color);
+}
+
+.primary {
+    background-color: var(--green-color);
+}
+
+.secondary {
     background-color: gray;
 }
 
@@ -92,6 +125,7 @@ button {
 .img_profile_big {
     width: 150px;
     height: 150px;
+    border: 3px solid var(--green-color);
 }
 
 .registration_page {
@@ -144,6 +178,9 @@ button {
     display: flex;
     flex-direction: row;
     column-gap: 20px;
+    border: 3px solid var(--dark-color);
+    background-color: var(--light-blue-color);
+    margin: 32px var(--offset-2);
 }
 textarea {
     display: block;
@@ -152,6 +189,7 @@ textarea {
 
 .navigation {
     width: 30%;
+    margin: 32px var(--offset-2);
 }
 .main-body {
     display: flex;
@@ -160,11 +198,11 @@ textarea {
 
 .polygon {
     clip-path: polygon(
-        5px 0,
+        25px 0,
         100% 0,
-        100% calc(100% - 5px),
-        calc(100% - 5px) 100%,
+        100% calc(100% - 25px),
+        calc(100% - 25px) 100%,
         0 100%,
-        0 5px
+        0 25px
     );
 }

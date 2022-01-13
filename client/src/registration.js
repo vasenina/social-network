@@ -79,7 +79,7 @@ export default class Registration extends Component {
                 {this.state.error && (
                     <h2 className="error">{this.state.error}</h2>
                 )}
-                <form className="register_form">
+                <form className="center_form">
                     <InputField
                         label="First Name"
                         name="first"

@@ -53,7 +53,9 @@ export default class BioEditor extends Component {
         return (
             <section>
                 {!this.props.bio && !this.state.edit && (
-                    <button onClick={this.editBioToggle}>Add Bio</button>
+                    <button onClick={this.editBioToggle} className="primary">
+                        Add Bio
+                    </button>
                 )}
                 {this.props.bio && !this.state.edit && (
                     <>
@@ -70,10 +72,15 @@ export default class BioEditor extends Component {
                             maxLength="300"
                             onChange={this.textAreaChanged}
                         />
-                        <button onClick={this.editBioToggle} className="cancel">
+                        <button
+                            onClick={this.editBioToggle}
+                            className="secondary"
+                        >
                             Cancel
                         </button>
-                        <button onClick={this.changeBio}>Add</button>
+                        <button onClick={this.changeBio} className="primary">
+                            Add
+                        </button>
                     </>
                 )}
             </section>
