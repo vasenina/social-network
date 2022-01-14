@@ -3,27 +3,24 @@ import ProfilePic from "./profilePic";
 
 export default function findPeople() {
     const [searchString, setsearchString] = useState("");
-    const [users, setUsers] = useState([
-        {
-            id: 1,
-            first: "first",
-            last: "last",
-            image_url: "https://randomuser.me/api/portraits/men/87.jpg",
-        },
-    ]);
-    const [userList, setUserList] = useState();
+    const [users, setUsers] = useState();
+    const [error, setError] = useState();
 
     useEffect(() => {
-        console.log("search", searchString);
+        // console.log("search", searchString);
         let abort = false;
         fetch(`getusers?search=${searchString}`)
             .then((res) => res.json())
             .then((data) => {
                 if (!abort) {
-                    console.log(data.users);
-                    setUsers(data.users);
-
-                    console.log("users", users);
+                    //console.log(data.users);
+                    if (data.success == true) {
+                        setUsers(data.users);
+                        setError("");
+                    } else {
+                        setError(data.error);
+                        setUsers([]);
+                    }
                 }
             })
             .catch((err) => console.log("error in fetch user info", err));
@@ -50,11 +47,17 @@ export default function findPeople() {
                                 last={user.last}
                                 size="small"
                             />
+                            {/**нужно передать экшен по клику */}
                             <p>
                                 {user.last} {user.first}
                             </p>
                         </div>
                     ))}
+                </div>
+            )}
+            {error && (
+                <div>
+                    <p className="error">{error}</p>
                 </div>
             )}
         </>

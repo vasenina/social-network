@@ -61,19 +61,32 @@ export default class Uploader extends Component {
         return (
             <div className="overlay" onClick={this.closeModal}>
                 <div className="modal shadow ">
-                    <span className="close-btn" onClick={this.props.close}>
-                        X
-                    </span>
-                    <h2>Upload your profile photo</h2>
-                    {this.state.error && (
-                        <p className="error"> {this.state.error}</p>
-                    )}
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={this.getPhoto}
-                    />
-                    <button onClick={this.uploadPhoto}>Upload</button>
+                    <div className="modal-header">
+                        <h2>Upload your profile photo</h2>
+                        {/* <div className="close-btn" onClick={this.props.close}>
+                            X
+                        </div> */}
+                    </div>
+                    <div className="modal-body">
+                        {this.state.error && (
+                            <p className="error"> {this.state.error}</p>
+                        )}
+                        <input
+                            className="input-file"
+                            type="file"
+                            accept="image/*"
+                            onChange={this.getPhoto}
+                        />
+                    </div>
+                    <div className="modal-footer">
+                        <button
+                            onClick={this.props.close}
+                            className="secondary"
+                        >
+                            Cancel
+                        </button>
+                        <button onClick={this.uploadPhoto}>Upload</button>
+                    </div>
                 </div>
             </div>
         );

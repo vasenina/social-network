@@ -126,12 +126,13 @@ module.exports.addPictureById = (id, url) => {
 
 module.exports.getUsersstartsWith = (search) => {
     console.log("DB: search users with name", search);
+    // if (!search == "") {
+    //     console.log("empty search");
+    // }
     const q = `SELECT id, first, last, image_url FROM users
-                WHERE last ILIKE 'a%';`;
+                WHERE last ILIKE $1 LIMIT 5;`;
 
-    const params = [];
-    //const params = [];
-    console.log("DB params", params, q);
-    // console.log(`this is a search ${search}%`);
+    const params = [search + "%"];
+
     return db.query(q, params);
 };

@@ -18,7 +18,10 @@ export default function Header({ first, last, imageUrl, toggleUploader }) {
                     toggleUploader={toggleUploader}
                     size="small"
                 />
-                <button
+
+                <img
+                    src="logout-icon.svg"
+                    className="icon-btn"
                     onClick={() => {
                         console.log("logout clicked");
                         fetch("/logout", {})
@@ -29,9 +32,22 @@ export default function Header({ first, last, imageUrl, toggleUploader }) {
                                 console.log("logout error", err);
                             });
                     }}
-                >
-                    out
-                </button>
+                />
+                {/* <object
+                    type="image/svg+xml"
+                    data="logout-icon.svg"
+                    className="icon-btn"
+                    onClick={() => {
+                        console.log("logout clicked");
+                        fetch("/logout", {})
+                            .then(() => {
+                                location.reload();
+                            })
+                            .catch((err) => {
+                                console.log("logout error", err);
+                            });
+                    }}
+                ></object> */}
             </div>
         </div>
     );

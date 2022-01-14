@@ -39,11 +39,17 @@ app.get("/logout", (req, res) => {
     return;
 });
 app.get("/getusers", (req, res) => {
-    let search = req.query ? req.query : "";
+    let search = req.query ? req.query.search : "";
     console.log("user wants to see users", search);
     db.getUsersstartsWith(search)
         .then(({ rows }) => {
-            console.log("users for Search", rows);
+            if (rows.length <= 0) {
+                return res.json({
+                    success: false,
+                    error: "Users are not found",
+                });
+            }
+            //console.log("users for Search", rows);
             res.json({
                 success: true,
                 users: rows,
@@ -51,6 +57,10 @@ app.get("/getusers", (req, res) => {
         })
         .catch((err) => {
             console.log("Err in get usersstarts with name", err);
+            res.json({
+                success: false,
+                error: "Smth is wrong. Please Try again",
+            });
         });
 });
 
