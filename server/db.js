@@ -123,3 +123,15 @@ module.exports.addPictureById = (id, url) => {
     const params = [id, url];
     return db.query(q, params);
 };
+
+module.exports.getUsersstartsWith = (search) => {
+    console.log("DB: search users with name", search);
+    const q = `SELECT id, first, last, image_url FROM users
+                WHERE last ILIKE 'a%';`;
+
+    const params = [];
+    //const params = [];
+    console.log("DB params", params, q);
+    // console.log(`this is a search ${search}%`);
+    return db.query(q, params);
+};

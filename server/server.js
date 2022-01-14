@@ -38,6 +38,21 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
     return;
 });
+app.get("/getusers", (req, res) => {
+    let search = req.query ? req.query : "";
+    console.log("user wants to see users", search);
+    db.getUsersstartsWith(search)
+        .then(({ rows }) => {
+            console.log("users for Search", rows);
+            res.json({
+                success: true,
+                users: rows,
+            });
+        })
+        .catch((err) => {
+            console.log("Err in get usersstarts with name", err);
+        });
+});
 
 app.post("/register.json", function (req, res) {
     //console.log(req.body);

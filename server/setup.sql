@@ -21,3 +21,9 @@ CREATE TABLE reset_codes(
       );
 
 
+
+SELECT id, first, last, image_url FROM users
+                WHERE last ILIKE 'h%' OR first ILIKE 'h';
+
+SELECT id, first, last, image_url FROM users
+                WHERE last ILIKE 'h%' ;

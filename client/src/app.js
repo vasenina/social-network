@@ -1,8 +1,10 @@
 import { Component } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./header";
 import Navigation from "./navigation";
 import Uploader from "./uploader";
 import Bio from "./bio";
+import FindPeople from "./findPeople";
 
 export default class App extends Component {
     constructor(props) {
@@ -67,16 +69,26 @@ export default class App extends Component {
                     toggleUploader={this.toggleUploader}
                 />
                 <div className="main-body">
-                    <Navigation />
-                    <Bio
-                        first={this.state.first}
-                        last={this.state.last}
-                        imageUrl={this.state.imageUrl}
-                        toggleUploader={this.toggleUploader}
-                        bio={this.state.bio}
-                        changeBio={this.changeBioState}
-                        userId={this.props.user_id}
-                    />
+                    <BrowserRouter>
+                        <Navigation />
+
+                        <div>
+                            <Route exact path="/">
+                                <Bio
+                                    first={this.state.first}
+                                    last={this.state.last}
+                                    imageUrl={this.state.imageUrl}
+                                    toggleUploader={this.toggleUploader}
+                                    bio={this.state.bio}
+                                    changeBio={this.changeBioState}
+                                    userId={this.props.user_id}
+                                />
+                            </Route>
+                            <Route path="/users">
+                                <FindPeople />
+                            </Route>
+                        </div>
+                    </BrowserRouter>
                 </div>
 
                 {this.state.uploaderIsVisible && (
