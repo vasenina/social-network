@@ -2,7 +2,7 @@ import ReactDOM from "react-dom";
 import Welcome from "./welcome";
 import App from "./app";
 
-fetch("/user/id.json")
+fetch("/user-cookie/id.json")
     .then((response) => response.json())
     .then((data) => {
         // console.log("DAta", data);

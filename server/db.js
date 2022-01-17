@@ -116,7 +116,7 @@ module.exports.changeBioById = (id, bio) => {
 };
 
 module.exports.addPictureById = (id, url) => {
-    console.log("DB: i'm changing a pw for this id", id);
+    console.log("DB: i'm changing a pic for this id", id);
     const q = `UPDATE users 
             SET image_url=$2
             WHERE id =$1;`;
@@ -125,14 +125,16 @@ module.exports.addPictureById = (id, url) => {
 };
 
 module.exports.getUsersstartsWith = (search) => {
-    console.log("DB: search users with name", search);
-    // if (!search == "") {
-    //     console.log("empty search");
-    // }
-    const q = `SELECT id, first, last, image_url FROM users
-                WHERE last ILIKE $1 LIMIT 5;`;
-
-    const params = [search + "%"];
-
-    return db.query(q, params);
+    console.log("DB: search users with name", search, "length", search.length);
+    if (search.length <= 0) {
+        //return list of users
+        const q = `SELECT id, first, last, image_url FROM users
+                 LIMIT 10;`;
+        return db.query(q);
+    } else {
+        const q = `SELECT id, first, last, image_url FROM users
+                WHERE last ILIKE $1 OR first ILIKE $1 LIMIT 5;`;
+        const params = [search + "%"];
+        return db.query(q, params);
+    }
 };

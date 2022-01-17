@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+
 import ProfilePic from "./profilePic";
 
-export default function findPeople() {
+export default function findPeople(props) {
     const [searchString, setsearchString] = useState("");
     const [users, setUsers] = useState();
     const [error, setError] = useState();
+    let history = useHistory();
 
     useEffect(() => {
         // console.log("search", searchString);
@@ -26,6 +29,7 @@ export default function findPeople() {
             .catch((err) => console.log("error in fetch user info", err));
         return () => (abort = true);
     }, [searchString]);
+
     return (
         <>
             <div className="navigation">find people</div>
@@ -40,7 +44,19 @@ export default function findPeople() {
             {users && (
                 <div className="user-list">
                     {users.map((user) => (
-                        <div key={user.id}>
+                        <div
+                            className="user-preview"
+                            key={user.id}
+                            onClick={() => {
+                                console.log("user click on", user.id);
+                                if (user.id == props.currentId) {
+                                    console.log(user.id, props.currentId);
+                                    history.replace("/");
+                                } else {
+                                    history.push("/user/" + user.id);
+                                }
+                            }}
+                        >
                             <ProfilePic
                                 imageUrl={user.image_url}
                                 first={user.first}

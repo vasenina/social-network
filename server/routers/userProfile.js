@@ -87,7 +87,7 @@ userProfile.post("/changebio/:id", (req, res) => {
         });
 });
 
-userProfile.get("/user/id.json", function (req, res) {
+userProfile.get("/user-cookie/id.json", function (req, res) {
     res.json({
         userId: req.session.userId,
         //last: req.session.last,
@@ -95,9 +95,11 @@ userProfile.get("/user/id.json", function (req, res) {
     });
 });
 
-userProfile.get("/user/:id", function (req, res) {
+userProfile.get("/api/user/:id", function (req, res) {
     const userId = req.params.id;
+    console.log("api/user: id", userId);
     db.getUserById(userId)
+        //db.getUserById("jal")
         .then(({ rows }) => {
             console.log("user data from DB", rows[0]);
             res.json({
@@ -109,9 +111,29 @@ userProfile.get("/user/:id", function (req, res) {
             });
         })
         .catch((err) => {
-            res.json({ success: false });
+            res.status(500).send("ServerError");
+            // res.json({ error: "No data for this user" });
             console.log("error in getUserByID", err);
         });
 });
+
+// app.get("/user/:id", function (req, res) {
+//     const userId = req.params.id;
+//     db.getUserById(userId)
+//         .then(({ rows }) => {
+//             console.log("user data from DB", rows[0]);
+//             res.json({
+//                 success: true,
+//                 first: rows[0].first,
+//                 last: rows[0].last,
+//                 imageUrl: rows[0].image_url,
+//                 bio: rows[0].bio,
+//             });
+//         })
+//         .catch((err) => {
+//             res.json({ success: false });
+//             console.log("error in getUserByID", err);
+//         });
+// });
 
 module.exports.userProfile = userProfile;

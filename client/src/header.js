@@ -1,6 +1,8 @@
 import ProfilePic from "./profilePic";
 import Logo from "./UI/logo";
+import { useHistory, Redirect } from "react-router-dom";
 export default function Header({ first, last, imageUrl, toggleUploader }) {
+    const history = useHistory();
     // function logout() {
     //     console.log("logout");
     //     fetch("/logout", {}).then(() => {
@@ -15,7 +17,7 @@ export default function Header({ first, last, imageUrl, toggleUploader }) {
                     imageUrl={imageUrl}
                     first={first}
                     last={last}
-                    toggleUploader={toggleUploader}
+                    action={toggleUploader}
                     size="small"
                 />
 

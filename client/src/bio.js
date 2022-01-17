@@ -17,7 +17,7 @@ export default function Bio({
                     imageUrl={imageUrl}
                     first={first}
                     last={last}
-                    toggleUploader={toggleUploader}
+                    action={toggleUploader}
                 />
             </div>
             <div>

@@ -1,6 +1,8 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
 import InputField from "./UI/inputField";
+import { useFormSubmit } from "./hooks/useFormSubmit";
+import { useForm } from "./hooks/useFormSubmit";
 
 export default class Registration extends Component {
     constructor(props) {
@@ -9,6 +11,8 @@ export default class Registration extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+    // const [] = useForm();
+    // const [submit, error] = useFormSubmit("/register.json", userInput);
 
     componentDidMount() {
         console.log("registration just mounted");

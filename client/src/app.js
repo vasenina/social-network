@@ -5,6 +5,7 @@ import Navigation from "./navigation";
 import Uploader from "./uploader";
 import Bio from "./bio";
 import FindPeople from "./findPeople";
+import UserInfo from "./userInfo";
 
 export default class App extends Component {
     constructor(props) {
@@ -21,7 +22,8 @@ export default class App extends Component {
     //here will be a fetch where we can get a data
     componentDidMount() {
         console.log("app component mounted");
-        fetch("/user/" + this.props.user_id)
+        // fetch("/api/user/3").then(console.log("fetch is ok"));
+        fetch("/api/user/" + this.props.user_id)
             .then((response) => response.json())
             .then((data) => {
                 if (data.success == true) {
@@ -33,7 +35,15 @@ export default class App extends Component {
 
                 // console.log(this.state);
             })
-            .catch((err) => console.log("error in fetch user info", err));
+            .catch((err) => {
+                console.log("error in fetch user info", err);
+                // console.log("ERORERROR EROOR");
+                // console.log(response);
+                console.log(err.message);
+                this.setState({ error: "smth is wrong" }, () => {
+                    console.log(this.state);
+                });
+            });
         console.log(this.props.user_id);
     }
 
@@ -74,6 +84,12 @@ export default class App extends Component {
 
                         <div>
                             <Route exact path="/">
+                                {this.state.error && (
+                                    <div className="error">
+                                        {this.state.error}
+                                    </div>
+                                )}
+
                                 <Bio
                                     first={this.state.first}
                                     last={this.state.last}
@@ -85,7 +101,10 @@ export default class App extends Component {
                                 />
                             </Route>
                             <Route path="/users">
-                                <FindPeople />
+                                <FindPeople currentId={this.props.user_id} />
+                            </Route>
+                            <Route path="/user/:id">
+                                <UserInfo />
                             </Route>
                         </div>
                     </BrowserRouter>
