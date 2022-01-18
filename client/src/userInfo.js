@@ -2,6 +2,7 @@ import { useParams, useHistory } from "react-router";
 import { useEffect, useState } from "react";
 //import { Link } from "react-router-dom";
 import ProfilePic from "./profilePic";
+import FrienBtn from "./friendBtn";
 
 export default function userInfo() {
     const { id } = useParams();
@@ -21,7 +22,11 @@ export default function userInfo() {
             .then((response) => response.json())
             .then((data) => {
                 console.log("user info", data);
-                setUser(data);
+                if (data.error) {
+                    //redirect to "/"
+                } else {
+                    setUser(data);
+                }
 
                 // console.log(this.state);
             })
@@ -47,6 +52,7 @@ export default function userInfo() {
                     {user.first} {user.last}
                 </h2>
                 <p>{user.bio}</p>
+                <FrienBtn otherId={id} />
             </div>
         </div>
     );

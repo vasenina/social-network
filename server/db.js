@@ -125,7 +125,7 @@ module.exports.addPictureById = (id, url) => {
 };
 
 module.exports.getUsersstartsWith = (search) => {
-    console.log("DB: search users with name", search, "length", search.length);
+    console.log("DB: search users with name", search);
     if (search.length <= 0) {
         //return list of users
         const q = `SELECT id, first, last, image_url FROM users
@@ -137,4 +137,46 @@ module.exports.getUsersstartsWith = (search) => {
         const params = [search + "%"];
         return db.query(q, params);
     }
+};
+
+module.exports.getRelationship = (id, otherId) => {
+    console.log("DB: search relationship between ", id, "and", otherId);
+    const q = `SELECT * FROM friendships 
+                WHERE (recipient_id = $1 AND sender_id = $2) 
+                OR (recipient_id = $2 AND sender_id = $1)`;
+    const params = [id, otherId];
+    return db.query(q, params);
+};
+
+module.exports.addfriendshipRequest = (id, otherId) => {
+    console.log("add a friend request");
+    const q = `INSERT INTO friendships (sender_id, recipient_id) VALUES($1, $2);`;
+    const params = [id, otherId];
+    return db.query(q, params);
+};
+
+module.exports.acceptFriendshipRequest = (id, otherId) => {
+    console.log("add a friend request");
+    const q = `UPDATE friendships 
+                SET accepted = true 
+                WHERE  sender_id = $2 AND recipient_id  = $1;`;
+    const params = [id, otherId];
+    return db.query(q, params);
+};
+
+module.exports.deleteFriendshipRequest = (id, otherId) => {
+    console.log("add a friend request");
+    const q = `DELETE FROM friendships 
+                WHERE  sender_id = $1 AND recipient_id  = $2;`;
+    const params = [id, otherId];
+    return db.query(q, params);
+};
+
+module.exports.endFriendship = (id, otherId) => {
+    console.log("endFriendship");
+    const q = `DELETE FROM friendships 
+                WHERE (recipient_id = $1 AND sender_id = $2) 
+                OR (recipient_id = $2 AND sender_id = $1)`;
+    const params = [id, otherId];
+    return db.query(q, params);
 };

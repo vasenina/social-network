@@ -26,11 +26,14 @@ export default class App extends Component {
         fetch("/api/user/" + this.props.user_id)
             .then((response) => response.json())
             .then((data) => {
+                // this.setState(data);
+
                 if (data.success == true) {
                     // console.log(data);
                     this.setState(data);
                 } else {
-                    this.setState((error = "smth is wrong"));
+                    console.log("Error, Error");
+                    this.setState({ error: "smth is wrong" });
                 }
 
                 // console.log(this.state);
@@ -39,7 +42,7 @@ export default class App extends Component {
                 console.log("error in fetch user info", err);
                 // console.log("ERORERROR EROOR");
                 // console.log(response);
-                console.log(err.message);
+                console.log(err);
                 this.setState({ error: "smth is wrong" }, () => {
                     console.log(this.state);
                 });

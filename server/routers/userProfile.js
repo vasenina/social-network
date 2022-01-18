@@ -109,11 +109,13 @@ userProfile.get("/api/user/:id", function (req, res) {
                 imageUrl: rows[0].image_url,
                 bio: rows[0].bio,
             });
+            return;
         })
         .catch((err) => {
-            res.status(500).send("ServerError");
+            res.status(500).send({ error: "ServerError" });
             // res.json({ error: "No data for this user" });
             console.log("error in getUserByID", err);
+            return;
         });
 });
 

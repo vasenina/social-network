@@ -20,10 +20,10 @@ CREATE TABLE reset_codes(
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
 
+CREATE TABLE friendships( 
+  id SERIAL PRIMARY KEY, 
+  sender_id INT REFERENCES users(id) NOT NULL,
+  recipient_id INT REFERENCES users(id) NOT NULL,
+  accepted BOOLEAN DEFAULT false);
 
 
-SELECT id, first, last, image_url FROM users
-                WHERE last ILIKE 'h%' OR first ILIKE 'h';
-
-SELECT id, first, last, image_url FROM users
-                WHERE last ILIKE 'h%' ;

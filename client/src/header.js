@@ -22,7 +22,7 @@ export default function Header({ first, last, imageUrl, toggleUploader }) {
                 />
 
                 <img
-                    src="logout-icon.svg"
+                    src="/logout-icon.svg"
                     className="icon-btn"
                     onClick={() => {
                         console.log("logout clicked");

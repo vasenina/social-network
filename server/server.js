@@ -8,6 +8,7 @@ const cookieSession = require("cookie-session");
 
 const { resetPass } = require("./routers/resetPass.js");
 const { userProfile } = require("./routers/userProfile.js");
+const { otherProfiles } = require("./routers/otherProfiles.js");
 
 app.use(compression());
 
@@ -24,6 +25,7 @@ app.use(
 );
 app.use(resetPass);
 app.use(userProfile);
+app.use(otherProfiles);
 
 app.get("/clear", (req, res) => {
     req.session = null;

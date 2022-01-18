@@ -1,5 +1,5 @@
 export default function ProfilePic({ first, last, imageUrl, action, size }) {
-    const picUrl = imageUrl || "default_profile.png";
+    const picUrl = imageUrl || "/default_profile.png";
     const imgClass =
         size == "small"
             ? "img_profile_small cursor"
