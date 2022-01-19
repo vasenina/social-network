@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import InputField from "./UI/inputField";
 
 export default function Login(props) {
+    const fieldNames = ["email", "password"];
     const [values, handleChange] = useForm();
-    const [submit, error] = useFormSubmit("/login.json", values);
+    const [submit, error] = useFormSubmit("/login.json", values, fieldNames);
 
     return (
         // <>LOGIN PAGE</>

@@ -1,10 +1,25 @@
 import { useState } from "react";
 
-export default function useFormSubmit(url, userInput) {
+export default function useFormSubmit(url, userInput, inputFields) {
     const [error, setError] = useState(false);
     const submit = (e) => {
         e.preventDefault();
         console.log("user wants to submit", userInput);
+
+        let errorString = "";
+        console.log(error);
+        for (let i = 0; i < inputFields.length; i++) {
+            if (!userInput[inputFields[i]]) {
+                if (errorString.length <= 0) {
+                    errorString = `Please fill  ${inputFields[i]}`;
+                    // console.log("error was empty", error);
+                } else errorString += ` and  ${inputFields[i]}`;
+            }
+        }
+        if (errorString.length > 0) {
+            setError(errorString);
+            return [submit, error];
+        }
 
         fetch(url, {
             method: `POST`,
@@ -17,12 +32,8 @@ export default function useFormSubmit(url, userInput) {
                 if (data.success) {
                     location.replace("/");
                 } else {
-                    // setError("Smth wrong on the server");
                     setError("Your email or password are incorrect.");
                 }
-                // data.success
-                //     ? location.replace("/")
-                //     : setError("Smth wrong on the server");
             });
     };
 

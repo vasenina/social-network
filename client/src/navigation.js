@@ -4,18 +4,21 @@ export default function Navigation() {
     return (
         <div className="navigation">
             <ul>
-                <li className="nav_item">
-                    <Link to="/">bio</Link>
-                </li>
-                <li className="nav_item">
-                    <Link to="/friends">friends</Link>
-                </li>
-                <li className="nav_item">
-                    <Link to="/users">people</Link>
-                </li>
-                <li className="nav_item">
-                    <Link to="/chat">chat</Link>
-                </li>
+                <Link to="/">
+                    <li className="nav_item">bio </li>
+                </Link>
+
+                <Link to="/friends">
+                    <li className="nav_item">friends</li>
+                </Link>
+
+                <Link to="/users">
+                    <li className="nav_item">people</li>
+                </Link>
+
+                <Link to="/chat">
+                    <li className="nav_item">chat</li>
+                </Link>
             </ul>
         </div>
     );
