@@ -106,38 +106,49 @@ app.post("/register.json", function (req, res) {
 //app post login
 
 app.post("/login.json", (req, res) => {
+    console.log("login", req.body);
+    if (!req.body.password || !req.body.email) {
+        console.log("No pw or email");
+        res.json({
+            success: false,
+        });
+        return;
+    }
     db.getPassword(req.body.email)
         .then((hashFromDatabase) => {
-            console.log("hashFromDatabase", hashFromDatabase.rows[0].password);
+            // console.log("hashFromDatabase", hashFromDatabase.rows[0].password);
             return compare(
                 req.body.password,
                 hashFromDatabase.rows[0].password
             );
         })
         .then((match) => {
-            console.log("do provided pw and db stored hash mash", match);
+            // console.log("do provided pw and db stored hash mash", match);
             if (match) {
                 return db.getUserId(req.body.email);
             } else {
                 res.json({
                     success: false,
                 });
+                return;
             }
         })
         .then(({ rows }) => {
             console.log("users id and sign id:", rows[0].user_id);
             //here we should set cookies
             req.session.userId = rows[0].user_id;
+            console.log("cookie", req.session.userId);
             //req.session.last = rows[0].last;
             //req.session.first = rows[0].first;
             res.json({
                 success: true,
             });
+            return;
         })
         .catch((err) => {
             console.log("error in compare pw", err);
             // const error = {}
-            res.json({
+            res.status(500).json({
                 success: false,
             });
         });

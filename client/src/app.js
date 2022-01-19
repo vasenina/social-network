@@ -6,6 +6,8 @@ import Uploader from "./uploader";
 import Bio from "./bio";
 import FindPeople from "./findPeople";
 import UserInfo from "./userInfo";
+import Friends from "./friends";
+import Chat from "./chat";
 
 export default class App extends Component {
     constructor(props) {
@@ -102,6 +104,12 @@ export default class App extends Component {
                                     changeBio={this.changeBioState}
                                     userId={this.props.user_id}
                                 />
+                            </Route>
+                            <Route path="/friends">
+                                <Friends />
+                            </Route>
+                            <Route path="/chat">
+                                <Chat />
                             </Route>
                             <Route path="/users">
                                 <FindPeople currentId={this.props.user_id} />

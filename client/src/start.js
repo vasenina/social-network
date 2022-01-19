@@ -7,7 +7,7 @@ fetch("/user-cookie/id.json")
     .then((data) => {
         console.log("DAta", data);
         if (!data.userId) {
-            window.history.replaceState({}, null, "/");
+            // window.history.replaceState({}, null, "/");
             ReactDOM.render(<Welcome />, document.querySelector("main"));
         } else {
             ReactDOM.render(
