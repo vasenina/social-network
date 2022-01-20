@@ -82,6 +82,13 @@ button:hover {
     background-color: gray;
 }
 
+.friend-preview-btn {
+    font-size: 10px;
+    width: 50px;
+    margin: 0;
+    padding: 4px;
+}
+
 .input_group {
     padding: 16px 0 0;
     display: flex;

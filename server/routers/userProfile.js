@@ -119,6 +119,23 @@ userProfile.get("/api/user/:id", function (req, res) {
         });
 });
 
+userProfile.get("/friends-and-fans", async (req, res) => {
+    //console.log("user want to see his friends", req.session.userId);
+    try {
+        const friends = await db.getMyFriendsAndFans(req.session.userId);
+        //console.log("THIS IS YOUR FRIENDS", friends);
+        return res.json({ success: true, friendsAndFans: friends.rows });
+    } catch {
+        (err) => {
+            // console.log("SMTH Wrong with getting friends from db", err);
+            return res
+                .status(500)
+                .json({ success: false, error: "Db is broken" });
+        };
+    }
+    return res.status(500).json({ success: false, error: "smth is wrong" });
+    //return res.json({ success: true, friendsAndFans: [] });
+});
 // app.get("/user/:id", function (req, res) {
 //     const userId = req.params.id;
 //     db.getUserById(userId)

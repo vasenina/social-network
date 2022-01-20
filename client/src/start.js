@@ -2,6 +2,17 @@ import ReactDOM from "react-dom";
 import Welcome from "./welcome";
 import App from "./app";
 
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import * as immutableState from "redux-immutable-state-invariant";
+import reducer from "./redux/reducer.js";
+//create store
+const store = createStore(
+    reducer,
+    composeWithDevTools(applyMiddleware(immutableState.default()))
+);
+
 fetch("/user-cookie/id.json")
     .then((response) => response.json())
     .then((data) => {
@@ -11,7 +22,9 @@ fetch("/user-cookie/id.json")
             ReactDOM.render(<Welcome />, document.querySelector("main"));
         } else {
             ReactDOM.render(
-                <App user_id={data.userId} />,
+                <Provider store={store}>
+                    <App user_id={data.userId} />
+                </Provider>,
                 document.querySelector("main")
             );
         }

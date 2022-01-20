@@ -149,14 +149,14 @@ module.exports.getRelationship = (id, otherId) => {
 };
 
 module.exports.addfriendshipRequest = (id, otherId) => {
-    console.log("add a friend request");
+    console.log("DB: add a friend request");
     const q = `INSERT INTO friendships (sender_id, recipient_id) VALUES($1, $2);`;
     const params = [id, otherId];
     return db.query(q, params);
 };
 
 module.exports.acceptFriendshipRequest = (id, otherId) => {
-    console.log("add a friend request");
+    console.log("DB: add a friend request");
     const q = `UPDATE friendships 
                 SET accepted = true 
                 WHERE  sender_id = $2 AND recipient_id  = $1;`;
@@ -165,7 +165,7 @@ module.exports.acceptFriendshipRequest = (id, otherId) => {
 };
 
 module.exports.deleteFriendshipRequest = (id, otherId) => {
-    console.log("add a friend request");
+    console.log("DB: add a friend request");
     const q = `DELETE FROM friendships 
                 WHERE  sender_id = $1 AND recipient_id  = $2;`;
     const params = [id, otherId];
@@ -173,10 +173,22 @@ module.exports.deleteFriendshipRequest = (id, otherId) => {
 };
 
 module.exports.endFriendship = (id, otherId) => {
-    console.log("endFriendship");
+    console.log("DB: endFriendship");
     const q = `DELETE FROM friendships 
                 WHERE (recipient_id = $1 AND sender_id = $2) 
                 OR (recipient_id = $2 AND sender_id = $1)`;
     const params = [id, otherId];
+    return db.query(q, params);
+};
+
+module.exports.getMyFriendsAndFans = (id) => {
+    console.log("DB: get friends for user", id);
+    const q = `SELECT users.id, first, last, image_url, accepted, sender_id
+                FROM friendships
+                JOIN users ON (accepted = FALSE AND recipient_id = $1 AND sender_id = users.id) OR 
+                  (accepted = FALSE AND sender_id = $1 AND recipient_id = users.id) OR
+                (accepted = TRUE AND recipient_id = $1 AND sender_id = users.id) OR
+                (accepted = TRUE AND sender_id = $1 AND recipient_id = users.id)`;
+    const params = [id];
     return db.query(q, params);
 };
