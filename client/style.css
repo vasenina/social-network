@@ -60,6 +60,10 @@ ul {
     background-color: var(--yellow-color);
 }
 
+.nav-selected {
+    border: 3px solid var(--yellow-color);
+}
+
 button {
     background-color: var(--green-color);
     color: var(--dark-color);
@@ -86,6 +90,15 @@ button:hover {
     font-size: 10px;
     width: 50px;
     margin: 0;
+    padding: 4px;
+    box-shadow: none;
+}
+.reject-btn {
+    font-size: 10px;
+    width: 23px;
+    background-color: red;
+    color: white;
+    margin-left: 4px;
     padding: 4px;
     box-shadow: none;
 }
@@ -183,6 +196,9 @@ button:hover {
 .h2-modal {
     margin: var(--offset-2);
 }
+h2 {
+    margin: var(--offset-2);
+}
 .modal-header {
     width: 100%;
     background-color: white;
@@ -241,6 +257,22 @@ textarea {
 }
 .user-preview:hover {
     cursor: pointer;
+}
+
+.friend-preview {
+    /* display: flex;
+    align-content: center;
+    flex-direction: column; */
+    padding: 8px;
+    margin-top: 32px;
+    width: 100px;
+    height: 140px;
+}
+.flex-bottom {
+    align-self: flex-end;
+    /* display: flex;
+    justify-content: center;
+ */
 }
 
 .icon-btn {

@@ -28,7 +28,7 @@ export default function Header({ first, last, imageUrl, toggleUploader }) {
                         console.log("logout clicked");
                         fetch("/logout", {})
                             .then(() => {
-                                location.assign("/");
+                                location.assign("/login");
                             })
                             .catch((err) => {
                                 console.log("logout error", err);

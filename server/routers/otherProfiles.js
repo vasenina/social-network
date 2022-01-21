@@ -48,7 +48,7 @@ otherProfiles.post("/api/friendship/:id/:action", async (req, res) => {
     );
     //let result = {};
     if (req.params.action == "add") {
-        //добавляем в бузу данных нужное
+        //добавляем в бaзу данных нужное
         try {
             const dbres = await db.addfriendshipRequest(
                 req.session.userId,

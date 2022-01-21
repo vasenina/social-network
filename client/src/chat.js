@@ -1,3 +1,10 @@
+// import { io } from "socket.io-client";
+// const socket = io();
+
 export default function Chat() {
-    return <>CHAT will be there</>;
+    return (
+        <>
+            <h2>Let's start chatting</h2>
+        </>
+    );
 }

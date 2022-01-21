@@ -53,6 +53,9 @@ export default function userInfo() {
                 </h2>
                 <p>{user.bio}</p>
                 <FrienBtn otherId={id} />
+                <div>
+                    <>Friends</>
+                </div>
             </div>
         </div>
     );

@@ -85,7 +85,7 @@ export default class App extends Component {
                 />
                 <div className="main-body">
                     <BrowserRouter>
-                        <Navigation />
+                        <Navigation path={window.location.pathname} />
 
                         <div>
                             <Route exact path="/">

@@ -10,6 +10,15 @@ const { resetPass } = require("./routers/resetPass.js");
 const { userProfile } = require("./routers/userProfile.js");
 const { otherProfiles } = require("./routers/otherProfiles.js");
 
+const socketIOserver = require("socket.io");
+
+const server = require("http").Server(app);
+const io = socketIOserver(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+});
+console.log("this is io", io);
+
 app.use(compression());
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
@@ -168,6 +177,22 @@ app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-app.listen(process.env.PORT || 3001, function () {
+server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
+});
+
+io.on("connection", function (socket) {
+    console.log(`socket with the id ${socket.id} is now connected`);
+
+    socket.on("disconnect", function () {
+        console.log(`socket with the id ${socket.id} is now disconnected`);
+    });
+
+    socket.on("thanks", function (data) {
+        console.log(data);
+    });
+
+    socket.emit("welcome", {
+        message: "Welome. It is nice to see you",
+    });
 });

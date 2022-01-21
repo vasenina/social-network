@@ -32,7 +32,8 @@ export default function findPeople(props) {
 
     return (
         <>
-            <div className="navigation">find people</div>
+            {/* <div className="navigation">find people</div> */}
+            <h2>Find interesting people here</h2>
             <input
                 type="text"
                 name="searchString"

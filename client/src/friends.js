@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { makeFriend, receiveFriends } from "./redux/friends-and-fans/slice";
+import { makeFriend, endFriendship } from "./redux/friends-and-fans/slice";
 import { useEffect, useState } from "react";
 import useGetRequest from "./hooks/useGetRequest";
 import ProfilePic from "./profilePic";
@@ -88,6 +88,12 @@ export default function Friends() {
                 console.log(data);
                 if (data.success) {
                     //location.replace("/");
+                    if (action === "accept") {
+                        dispatch(makeFriend(id));
+                    } else if (action === "end" || action === "cancel") {
+                        dispatch(endFriendship(id));
+                    }
+
                     //здесь делаем диспатч
                 } else {
                     //setError("Your email or password are incorrect.");
@@ -104,7 +110,7 @@ export default function Friends() {
                 {friends &&
                     friends.map((person) => {
                         return (
-                            <div key={person.id}>
+                            <div key={person.id} className="friend-preview">
                                 <ProfilePic
                                     imageUrl={person.image_url}
                                     first={person.first}
@@ -118,14 +124,26 @@ export default function Friends() {
                                 <p>
                                     {person.last} {person.first}
                                 </p>
-                                <button
-                                    className="friend-preview-btn"
-                                    onClick={() =>
-                                        handleBtnClick(person.id, action)
-                                    }
-                                >
-                                    {friendActions[action]}
-                                </button>
+                                <div className="flex-bottom">
+                                    <button
+                                        className="friend-preview-btn"
+                                        onClick={() =>
+                                            handleBtnClick(person.id, action)
+                                        }
+                                    >
+                                        {friendActions[action]}
+                                    </button>
+                                    {action === "accept" && (
+                                        <button
+                                            className="reject-btn"
+                                            onClick={() =>
+                                                handleBtnClick(person.id, "end")
+                                            }
+                                        >
+                                            X
+                                        </button>
+                                    )}
+                                </div>
                             </div>
                         );
                     })}
