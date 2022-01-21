@@ -34,6 +34,15 @@ export default function Friends() {
         );
     });
 
+    const [friendActions, setFriendActions] = useState({
+        add: "Add a Friend",
+        accept: "Accept",
+        cancel: "Cancel",
+        end: "End",
+        error: "Nothing",
+        start: "...",
+    });
+
     //console.log("People", people);
 
     const [test, settest] = useState([
@@ -68,13 +77,28 @@ export default function Friends() {
 
     // console.log("RESPONSE 2", response);
     //console.log("PEOPLE CONSOLE", people);
-    const handleAccept = (id) => {
+
+    const handleBtnClick = (id, action) => {
+        fetch(`/api/friendship/${id}/${action}`, {
+            method: `POST`,
+            headers: { "Content-Type": "application/json" },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                if (data.success) {
+                    //location.replace("/");
+                    //здесь делаем диспатч
+                } else {
+                    //setError("Your email or password are incorrect.");
+                }
+            });
         //step 1 post requuest to update db
         //step 2 - dispatch an action to update the Redux Store
         // dispatch(makeFriend(id));
     };
 
-    const returnFriendsList = (friends) => {
+    const returnFriendsList = (friends, action) => {
         return (
             <div className="user-list">
                 {friends &&
@@ -86,6 +110,9 @@ export default function Friends() {
                                     first={person.first}
                                     last={person.last}
                                     size="small"
+                                    action={() => {
+                                        location.assign("/user/" + person.id);
+                                    }}
                                 />
                                 {/**нужно передать экшен по клику */}
                                 <p>
@@ -93,9 +120,11 @@ export default function Friends() {
                                 </p>
                                 <button
                                     className="friend-preview-btn"
-                                    onClick={() => handleAccept(person.id)}
+                                    onClick={() =>
+                                        handleBtnClick(person.id, action)
+                                    }
                                 >
-                                    Accept
+                                    {friendActions[action]}
                                 </button>
                             </div>
                         );
@@ -108,12 +137,12 @@ export default function Friends() {
     return (
         <>
             <h2>You friends</h2>
-            {returnFriendsList(friends)}
+            {returnFriendsList(friends, "end")}
             <h2>They want to be your friends</h2>
-            {returnFriendsList(fans)}
+            {returnFriendsList(fans, "accept")}
 
             <h2>I send them request</h2>
-            {returnFriendsList(mydreams)}
+            {returnFriendsList(mydreams, "cancel")}
         </>
     );
 }
