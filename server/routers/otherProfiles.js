@@ -2,6 +2,19 @@ const express = require("express");
 const otherProfiles = express.Router();
 const db = require("../db");
 
+otherProfiles.get("/api/friends-of-friends/:id", async (req, res) => {
+    console.log(" User wants to see friends of friends", req.params.id);
+    try {
+        const dbRes = await db.getFiendsofthisPerson(req.params.id);
+        return res.json({ success: true, friends: dbRes.rows });
+    } catch {
+        (err) => {
+            console.log("error iin getting friends of friends", err);
+            return res.json({ success: false });
+        };
+    }
+});
+
 otherProfiles.get("/api/friendship/:id", async (req, res) => {
     console.log(
         "  FRIENDSHIP I'm:",

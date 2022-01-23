@@ -192,3 +192,14 @@ module.exports.getMyFriendsAndFans = (id) => {
     const params = [id];
     return db.query(q, params);
 };
+
+module.exports.getFiendsofthisPerson = (id) => {
+    console.log("DB: friends of friends");
+    const q = `SELECT users.id, first, last, image_url
+                FROM friendships
+                JOIN users ON
+                (accepted = TRUE AND recipient_id = $1 AND sender_id = users.id) OR
+                (accepted = TRUE AND sender_id = $1 AND recipient_id = users.id)`;
+    const params = [id];
+    return db.query(q, params);
+};

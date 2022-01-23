@@ -7,6 +7,7 @@ import FrienBtn from "./friendBtn";
 export default function userInfo() {
     const { id } = useParams();
     const [user, setUser] = useState({});
+    const [friends, setFriends] = useState([]);
     //const history = useHistory();
     useEffect(() => {
         // //make request here
@@ -31,12 +32,29 @@ export default function userInfo() {
                 // console.log(this.state);
             })
             .catch((err) => console.log("error in fetch user info", err));
-        console.log("bla-bla");
+
+        //getting friends of friends
+        console.log("before the fetch ");
+        fetch("/api/friends-of-friends/" + id)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("friends of friends", data);
+                if (data.error) {
+                    //redirect to "/"
+                } else {
+                    setFriends(data);
+                }
+
+                // console.log(this.state);
+            })
+            .catch((err) => console.log("error in fetch user info", err));
     }, [id]);
 
     if (!user.last) {
         return <div className="loader"></div>;
     }
+
+    console.log("FRIENDS_FRIENDS FRIENDS:", typeof friends);
     return (
         <div className="bio">
             <div className="bioPic">
@@ -53,8 +71,13 @@ export default function userInfo() {
                 </h2>
                 <p>{user.bio}</p>
                 <FrienBtn otherId={id} />
-                <div>
-                    <>Friends</>
+
+                <div className="user-list">
+                    dsjhj
+                    {friends &&
+                        friends.map((person) => {
+                            return <div key={person.id}>dskfe</div>;
+                        })}
                 </div>
             </div>
         </div>
