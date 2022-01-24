@@ -11,7 +11,7 @@ export default function Navigation(props) {
     // }
     useEffect(() => {
         const path = window.location.pathname;
-        console.log("Nav", path);
+        // console.log("Nav", path);
 
         const tabs = { bio: "", friends: "", people: "", chat: "" };
         if (path === "/") {

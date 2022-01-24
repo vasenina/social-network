@@ -12,12 +12,12 @@ export default function friendBtn(props) {
     });
 
     useEffect(() => {
-        console.log("friend ID", props.otherId);
+        // console.log("friend ID", props.otherId);
 
         fetch("/api/friendship/" + props.otherId)
             .then((response) => response.json())
             .then((data) => {
-                console.log("we got btn ststus from server", data);
+                // console.log("we got btn ststus from server", data);
                 if (data.success) {
                     setBtnText(data.text);
                 } else {
@@ -32,7 +32,7 @@ export default function friendBtn(props) {
     //const [error, setError] = useState();
 
     const clickHandler = () => {
-        console.log("btn clicked");
+        // console.log("btn clicked");
 
         fetch("/api/friendship/" + props.otherId + "/" + btnText, {
             method: "POST",
@@ -43,10 +43,10 @@ export default function friendBtn(props) {
         })
             .then((resp) => resp.json())
             .then((data) => {
-                console.log("response form server for btn click fetch", data);
+                //  console.log("response form server for btn click fetch", data);
                 //error handline here
                 if (data.success) {
-                    console.log("friendship post request ok", data);
+                    //  console.log("friendship post request ok", data);
                     setBtnText(data.text);
                     //btnText = data.text;
                 } else {
