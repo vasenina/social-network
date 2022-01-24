@@ -245,6 +245,47 @@ textarea {
     grid-template-columns: 30% 1fr;
 }
 
+.chat-container {
+    height: 50vh;
+
+    background-color: var(--light-blue-color);
+    overflow-y: scroll;
+    width: 90%;
+    border: 3px solid var(--dark-color);
+    margin: 0 var(--offset-2);
+    display: flex;
+    flex-direction: column-reverse;
+}
+.chat-area {
+    width: 90%;
+    margin: 0 var(--offset-2);
+    padding: 4px 24px;
+    background-color: var(--yellow-color);
+    font-size: 16px;
+}
+
+.message-view {
+    display: flex;
+    padding: var(--offset);
+    width: 100%;
+}
+.chat-photo-area {
+    padding: 0 var(--offset);
+}
+.message-head {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: var(--offset);
+    color: var(--bordo-color);
+}
+.message-body {
+    width: 100%;
+}
+.date-text {
+    font-size: 10px;
+}
+
 .user-list {
     display: flex;
     flex-wrap: wrap;

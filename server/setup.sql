@@ -1,4 +1,6 @@
- DROP TABLE IF EXISTS reset_codes;
+DROP TABLE IF EXISTS chat_messages;
+DROP TABLE IF EXISTS friendships;
+DROP TABLE IF EXISTS reset_codes;
 DROP TABLE IF EXISTS users;
 
 
@@ -26,11 +28,25 @@ CREATE TABLE friendships(
   recipient_id INT REFERENCES users(id) NOT NULL,
   accepted BOOLEAN DEFAULT false);
 
-SELECT  COUNT(*)
-FROM friendships 
-JOIN users 
-ON (sender_id =1 OR recipient_id = 1 ) 
-WHERE accepted = true AND NOT(users.id = 1);
+
+CREATE TABLE chat_messages(
+      id SERIAL PRIMARY KEY,
+      user_id INT NOT NULL REFERENCES users(id),
+      message TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+
+
+
+
+INSERT INTO chat_messages (user_id, message) VALUES ('145', 'Hey everyone, nice to meet you...');
+INSERT INTO chat_messages (user_id, message) VALUES ('101', 'Hello there!');
+INSERT INTO chat_messages (user_id, message) VALUES ('10', 'Hi hi hi!');
+
+-- SELECT  COUNT(*)
+-- FROM friendships 
+-- JOIN users 
+-- ON (sender_id =1 OR recipient_id = 1 ) 
+-- WHERE accepted = true AND NOT(users.id = 1);
 
 
 

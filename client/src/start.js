@@ -7,6 +7,8 @@ import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import * as immutableState from "redux-immutable-state-invariant";
 import reducer from "./redux/reducer.js";
+
+import { init } from "./socket";
 //create store
 const store = createStore(
     reducer,
@@ -21,6 +23,7 @@ fetch("/user-cookie/id.json")
             // window.history.replaceState({}, null, "/");
             ReactDOM.render(<Welcome />, document.querySelector("main"));
         } else {
+            init(store);
             ReactDOM.render(
                 <Provider store={store}>
                     <App user_id={data.userId} />

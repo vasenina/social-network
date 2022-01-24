@@ -203,3 +203,20 @@ module.exports.getFiendsofthisPerson = (id) => {
     const params = [id];
     return db.query(q, params);
 };
+
+module.exports.getLastMessages = () => {
+    console.log("DB: Get last messages");
+    const q = `SELECT chat_messages.id, user_id, users.image_url, users.first, users.last, message, chat_messages.created_at
+                FROM chat_messages
+                JOIN users ON (user_id = users.id)
+                ORDER BY chat_messages.created_at DESC
+                LIMIT 10;`;
+    const params = [];
+    return db.query(q, params);
+};
+module.exports.addNewMessage = (id, message) => {
+    console.log("DB: Ading new message");
+    const q = `INSERT INTO chat_messages (user_id, message) VALUES ($1, $2)  RETURNING id, created_at;`;
+    const params = [id, message];
+    return db.query(q, params);
+};

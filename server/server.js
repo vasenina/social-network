@@ -4,7 +4,7 @@ const compression = require("compression");
 const path = require("path");
 const db = require("./db");
 const { hash, compare } = require("./bc");
-const cookieSession = require("cookie-session");
+// const cookieSession = require("cookie-session");
 
 const { resetPass } = require("./routers/resetPass.js");
 const { userProfile } = require("./routers/userProfile.js");
@@ -17,21 +17,31 @@ const io = socketIOserver(server, {
     allowRequest: (req, callback) =>
         callback(null, req.headers.referer.startsWith("http://localhost:3000")),
 });
-console.log("this is io", io);
+//console.log("this is io", io);
+
+// app.use(
+//     cookieSession({
+//         secret:
+//             process.env.SESSION_SECRET || require("./passwords").sessionSecret,
+//         maxAge: 1000 * 60 * 60 * 24 * 14,
+//         sameSite: true,
+//     })
+// );
+const cookieSession = require("cookie-session");
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90,
+});
+app.use(cookieSessionMiddleware);
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(compression());
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use(express.json());
 
-app.use(
-    cookieSession({
-        secret:
-            process.env.SESSION_SECRET || require("./passwords").sessionSecret,
-        maxAge: 1000 * 60 * 60 * 24 * 14,
-        sameSite: true,
-    })
-);
 app.use(resetPass);
 app.use(userProfile);
 app.use(otherProfiles);
@@ -181,18 +191,61 @@ server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
 });
 
-io.on("connection", function (socket) {
-    console.log(`socket with the id ${socket.id} is now connected`);
+io.on("connection", (socket) => {
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
 
-    socket.on("disconnect", function () {
-        console.log(`socket with the id ${socket.id} is now disconnected`);
-    });
+    console.log(
+        `socket with the id ${socket.id} is now connected with user_id =  ${socket.request.session.userId}`
+    );
 
-    socket.on("thanks", function (data) {
+    db.getLastMessages()
+        .then(({ rows }) => {
+            console.log("rows:", rows);
+            //send it to the user who just connected
+            socket.emit("chatMessages", { messages: rows });
+        })
+        .catch((err) => console.log("error in get Messages", err));
+
+    socket.on("newChatMessage", (data) => {
         console.log(data);
-    });
+        const addNewMsg = db.addNewMessage(socket.request.session.userId, data);
+        const getUserData = db.getUserById(socket.request.session.userId);
+        Promise.all([addNewMsg, getUserData])
+            .then((results) => {
+                // console.log("promises ok", msg, user);
+                const message = {
+                    id: results[0].rows[0].id,
+                    created_at: results[0].rows[0].created_at,
+                    user_id: socket.request.session.userId,
+                    message: data,
+                    last: results[1].rows[0].last,
+                    first: results[1].rows[0].first,
+                    image_url: results[1].rows[0].image_url,
+                };
+                console.log("generated message", message);
+                io.emit("chatMessage", message);
+            })
+            .catch((err) => console.log("error in adding message in db", err));
 
-    socket.emit("welcome", {
-        message: "Welome. It is nice to see you",
+        // db.addNewMessage(socket.request.session.userId, data)
+        //     .then(({ rows }) => {
+        //         console.log("returning from db", rows);
+
+        //         const message = {
+        //             id: rows.id,
+        //             created_at: rows.created_at,
+        //             user_id: socket.request.session.userId,
+        //             message: data,
+        //         };
+        //         socket.emit("chatMessage", message);
+        //     })
+        //     .catch((err) => {
+        //         console.log("error in adding a new msg", err);
+        //     });
+        //add to db
+        // who is a user - get url and image url
+        //return object to every connected user which matches
     });
 });
