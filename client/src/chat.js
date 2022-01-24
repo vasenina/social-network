@@ -56,8 +56,7 @@ export default function Chat() {
                                     <div className="message-head">
                                         <p>
                                             <b>
-                                                {msg.first}
-                                                {msg.last}
+                                                {msg.first} {msg.last}
                                             </b>
                                         </p>
                                         <DayJS

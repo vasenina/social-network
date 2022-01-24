@@ -45,27 +45,32 @@ export default function userInfo() {
 
     // console.log("FRIENDS_FRIENDS FRIENDS:", typeof friends);
     return (
-        <div className="bio">
-            <div className="bioPic">
-                <ProfilePic
-                    imageUrl={user.imageUrl}
-                    first={user.first}
-                    last={user.last}
-                    action={user.toggleUploader}
-                />
+        <div className="user-info-container">
+            <div className="user-bio-info">
+                <div>
+                    <ProfilePic
+                        imageUrl={user.imageUrl}
+                        first={user.first}
+                        last={user.last}
+                        action={user.toggleUploader}
+                    />
+                </div>
+                <div>
+                    <h2>
+                        {user.first} {user.last}
+                    </h2>
+                    <p>{user.bio}</p>
+                    <FriendBtn otherId={id} />
+                </div>
             </div>
+
             <div>
-                <h2>
-                    {user.first} {user.last}
-                </h2>
-                <p>{user.bio}</p>
-                <FriendBtn otherId={id} />
                 <div>Friends :</div>
                 <div className="user-list">
                     {friends &&
                         friends.map((person) => {
                             return (
-                                <div key={person.id} className="friend-preview">
+                                <div key={person.id} className="user-preview">
                                     <ProfilePic
                                         imageUrl={person.image_url}
                                         first={person.first}
@@ -78,7 +83,7 @@ export default function userInfo() {
                                         }}
                                     />
 
-                                    <p>
+                                    <p className="text-center">
                                         {person.last} {person.first}
                                     </p>
                                 </div>

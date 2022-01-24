@@ -6,7 +6,7 @@ export default function friendBtn(props) {
         add: "Add a Friend",
         accept: "Accept request",
         cancel: "Cancel request",
-        end: "End a Friendship",
+        end: "Not a friend",
         error: "Nothing",
         start: "...",
     });

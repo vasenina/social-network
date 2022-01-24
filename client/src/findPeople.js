@@ -32,12 +32,12 @@ export default function findPeople(props) {
 
     return (
         <>
-            {/* <div className="navigation">find people</div> */}
             <h2>Find interesting people here</h2>
+
             <input
                 type="text"
                 name="searchString"
-                className="input_field"
+                className="input_field in-find-people"
                 onChange={(e) => {
                     setsearchString(e.target.value);
                 }}
@@ -65,7 +65,7 @@ export default function findPeople(props) {
                                 size="small"
                             />
                             {/**нужно передать экшен по клику */}
-                            <p>
+                            <p className="text-center">
                                 {user.last} {user.first}
                             </p>
                         </div>

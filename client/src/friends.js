@@ -45,27 +45,6 @@ export default function Friends() {
 
     //console.log("People", people);
 
-    const [test, settest] = useState([
-        {
-            id: 2,
-            first: "Lacey",
-            last: "Fritz",
-            image_url:
-                "https://images-na.ssl-images-amazon.com/images/M/MV5BNTQ3OTA2NDQtMzBkMy00ZDVjLWFlYzUtMmZhNzRmZTc3NmM1XkEyXkFqcGdeQXVyNjc1NTc4MDA@._V1_UX172_CR0,0,172,256_AL_.jpg",
-            accepted: false,
-            sender_id: 2,
-        },
-        {
-            id: 3,
-            first: "Lacsdey-true",
-            last: "Fritdsdz",
-            image_url:
-                "https://images-na.ssl-images-amazon.com/images/M/MV5BNTQ3OTA2NDQtMzBkMy00ZDVjLWFlYzUtMmZhNzRmZTc3NmM1XkEyXkFqcGdeQXVyNjc1NTc4MDA@._V1_UX172_CR0,0,172,256_AL_.jpg",
-            accepted: true,
-            sender_id: 2,
-        },
-    ]);
-
     useEffect(() => {
         //fetch friends and wannabies
         console.log("want to see a friendsPage");
@@ -105,51 +84,64 @@ export default function Friends() {
     };
 
     const returnFriendsList = (friends, action) => {
-        return (
-            <div className="user-list">
-                {friends &&
-                    friends.map((person) => {
-                        return (
-                            <div key={person.id} className="friend-preview">
-                                <ProfilePic
-                                    imageUrl={person.image_url}
-                                    first={person.first}
-                                    last={person.last}
-                                    size="small"
-                                    action={() => {
-                                        location.assign("/user/" + person.id);
-                                    }}
-                                />
-                                {/**нужно передать экшен по клику */}
-                                <p>
-                                    {person.last} {person.first}
-                                </p>
-                                <div className="flex-bottom">
-                                    <button
-                                        className="friend-preview-btn"
-                                        onClick={() =>
-                                            handleBtnClick(person.id, action)
-                                        }
-                                    >
-                                        {friendActions[action]}
-                                    </button>
-                                    {action === "accept" && (
+        if (friends.length <= 0) {
+            console.log("no people");
+            return <p className="no-people">... no people ...</p>;
+        } else {
+            console.log("people here");
+            return (
+                <div className="user-list">
+                    {friends &&
+                        friends.map((person) => {
+                            return (
+                                <div key={person.id} className="friend-preview">
+                                    <ProfilePic
+                                        imageUrl={person.image_url}
+                                        first={person.first}
+                                        last={person.last}
+                                        size="small"
+                                        action={() => {
+                                            location.assign(
+                                                "/user/" + person.id
+                                            );
+                                        }}
+                                    />
+                                    {/**нужно передать экшен по клику */}
+                                    <p className="text-center">
+                                        {person.last} {person.first}
+                                    </p>
+                                    <div className="flex-bottom">
                                         <button
-                                            className="reject-btn"
+                                            className="friend-preview-btn"
                                             onClick={() =>
-                                                handleBtnClick(person.id, "end")
+                                                handleBtnClick(
+                                                    person.id,
+                                                    action
+                                                )
                                             }
                                         >
-                                            X
+                                            {friendActions[action]}
                                         </button>
-                                    )}
+                                        {action === "accept" && (
+                                            <button
+                                                className="reject-btn"
+                                                onClick={() =>
+                                                    handleBtnClick(
+                                                        person.id,
+                                                        "end"
+                                                    )
+                                                }
+                                            >
+                                                X
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        );
-                    })}
-                {!friends && <p>No people here</p>}
-            </div>
-        );
+                            );
+                        })}
+                </div>
+            );
+        }
     };
 
     return (

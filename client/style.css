@@ -8,6 +8,8 @@
     --light-blue-color: #b5e8e5;
     --offset: 8px;
     --offset-2: 16px;
+    --offset-3: 24px;
+    --offset-4: 32px;
 }
 
 * {
@@ -122,6 +124,14 @@ button:hover {
     background: white;
     transition: border-color 0.2s;
 }
+.in-find-people {
+    margin-left: 20px;
+    margin-top: var(--offset-2);
+    width: 300px;
+}
+.long {
+    width: 80%;
+}
 
 .input_label {
     font-size: 16px;
@@ -231,6 +241,30 @@ h2 {
     background-color: var(--light-blue-color);
     margin: 32px var(--offset-2);
 }
+.user-info-container {
+    width: 90%;
+    padding: 20px 20px;
+    /* display: flex;
+    
+    column-gap: 20px; */
+    border: 3px solid var(--dark-color);
+    background-color: var(--light-blue-color);
+    margin: 32px var(--offset-2);
+}
+
+.user-bio-info {
+    display: flex;
+    /* flex-direction: row; */
+    column-gap: 20px;
+
+    width: 100%;
+    margin-bottom: var(--offset-2);
+}
+
+.find-people {
+    width: 90%;
+    padding: 20px 20px;
+}
 textarea {
     display: block;
     resize: none;
@@ -289,31 +323,44 @@ textarea {
 .user-list {
     display: flex;
     flex-wrap: wrap;
+    padding: var(--offset-2) var(--offset-2);
 }
 
 .user-preview {
     padding: 8px;
-    margin-top: 32px;
+    margin-top: 16px;
     width: 100px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 .user-preview:hover {
     cursor: pointer;
 }
 
 .friend-preview {
-    /* display: flex;
-    align-content: center;
-    flex-direction: column; */
+    display: flex;
+    /* align-content: center; */
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
     padding: 8px;
-    margin-top: 32px;
+    /* margin-top: var(--offset-2); */
     width: 100px;
     height: 140px;
 }
+
+.no-people {
+    margin-left: var(--offset-3);
+}
 .flex-bottom {
-    align-self: flex-end;
+    /* align-self: flex-end; */
     /* display: flex;
     justify-content: center;
  */
+}
+.text-center {
+    text-align: center;
 }
 
 .icon-btn {
