@@ -3,9 +3,12 @@ import { makeFriend, endFriendship } from "./redux/friends-and-fans/slice";
 import { useEffect, useState } from "react";
 import useGetRequest from "./hooks/useGetRequest";
 import ProfilePic from "./profilePic";
+import { useHistory } from "react-router-dom";
 
 export default function Friends() {
     const dispatch = useDispatch();
+    const [myId, setMyid] = useState(1);
+    let history = useHistory();
 
     const [getRequest, response] = useGetRequest("/friends-and-fans");
 
@@ -101,9 +104,13 @@ export default function Friends() {
                                         last={person.last}
                                         size="small"
                                         action={() => {
-                                            location.assign(
-                                                "/user/" + person.id
-                                            );
+                                            if (person.id == myId) {
+                                                history.replace("/");
+                                            } else {
+                                                history.push(
+                                                    "/user/" + person.id
+                                                );
+                                            }
                                         }}
                                     />
                                     {/**нужно передать экшен по клику */}

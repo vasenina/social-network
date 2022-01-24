@@ -1,13 +1,35 @@
-import { useParams, useHistory } from "react-router";
+import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 //import { Link } from "react-router-dom";
 import ProfilePic from "./profilePic";
 import FriendBtn from "./friendBtn";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 export default function userInfo() {
     const { id } = useParams();
     const [user, setUser] = useState({});
     const [friends, setFriends] = useState([]);
+    let history = useHistory();
+
+    const isAFriend = useSelector((state) => {
+        // state.friendsAndFans &&
+        //     state.friendsAndFans.map((friend) => {
+        //         if (friend.id == id) return true;
+        //     });
+        for (let i = 0; i < state.friendsAndFans; i++) {
+            console.log(state.friendsAndFans[i]);
+            if (
+                state.friendsAndFans[i].id == id &&
+                state.friendsAndFans[i].accepted
+            ) {
+                return true;
+            }
+        }
+        return false;
+    });
+
+    console.log("is it a friend?", isAFriend);
 
     useEffect(() => {
         fetch("/api/user/" + id)
@@ -77,9 +99,8 @@ export default function userInfo() {
                                         last={person.last}
                                         size="small"
                                         action={() => {
-                                            location.assign(
-                                                "/user/" + person.id
-                                            );
+                                            //check if it is me
+                                            history.push("/user/" + person.id);
                                         }}
                                     />
 

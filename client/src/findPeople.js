@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import ProfilePic from "./profilePic";
 
@@ -8,6 +9,29 @@ export default function findPeople(props) {
     const [users, setUsers] = useState();
     const [error, setError] = useState();
     let history = useHistory();
+
+    //accepted should be true
+    const friendsIds = useSelector((state) => {
+        return (
+            state.friendsAndFans &&
+            state.friendsAndFans.map((friend) => {
+                console.log(friend);
+                return friend.id;
+            })
+        );
+    });
+    // const [friendsIds, setFriendsIds] = useState([4, 2]);
+    // const userPreviewRef = useRef();
+
+    // const fans = useSelector((state) => {
+    //     return (
+    //         state.friendsAndFans &&
+    //         state.friendsAndFans.filter(
+    //             (friend) => !friend.accepted && friend.sender_id === friend.id
+    //         )
+    //     );
+    // });
+    console.log("IDS of friends", friendsIds);
 
     useEffect(() => {
         // console.log("search", searchString);
@@ -44,32 +68,44 @@ export default function findPeople(props) {
             />
             {users && (
                 <div className="user-list">
-                    {users.map((user) => (
-                        <div
-                            className="user-preview"
-                            key={user.id}
-                            onClick={() => {
-                                console.log("user click on", user.id);
-                                if (user.id == props.currentId) {
-                                    console.log(user.id, props.currentId);
-                                    history.replace("/");
-                                } else {
-                                    history.push("/user/" + user.id);
-                                }
-                            }}
-                        >
-                            <ProfilePic
-                                imageUrl={user.image_url}
-                                first={user.first}
-                                last={user.last}
-                                size="small"
-                            />
-                            {/**нужно передать экшен по клику */}
-                            <p className="text-center">
-                                {user.last} {user.first}
-                            </p>
-                        </div>
-                    ))}
+                    {users.map((user) => {
+                        const friendOrNot = friendsIds.find((e) => e == user.id)
+                            ? "text-center yellow"
+                            : "text-center";
+
+                        //   const friendOrNot = friendsIds.find(
+                        //       (e) => e == user.id
+                        //   )
+                        //       ? "user-preview yellow"
+                        //       : "user-preview";
+
+                        return (
+                            <div
+                                className="user-preview"
+                                key={user.id}
+                                onClick={() => {
+                                    console.log("user click on", user.id);
+                                    if (user.id == props.currentId) {
+                                        console.log(user.id, props.currentId);
+                                        history.replace("/");
+                                    } else {
+                                        history.push("/user/" + user.id);
+                                    }
+                                }}
+                            >
+                                <ProfilePic
+                                    imageUrl={user.image_url}
+                                    first={user.first}
+                                    last={user.last}
+                                    size="small"
+                                />
+                                {/**нужно передать экшен по клику */}
+                                <p className={friendOrNot}>
+                                    {user.last} {user.first}
+                                </p>
+                            </div>
+                        );
+                    })}
                 </div>
             )}
             {error && (
