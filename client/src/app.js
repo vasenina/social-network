@@ -20,7 +20,7 @@ export default class App extends Component {
         this.changePic = this.changePic.bind(this);
         this.changeBioState = this.changeBioState.bind(this);
     }
-
+    //const dispatch = useDispatch();
     //here will be a fetch where we can get a data
     componentDidMount() {
         console.log("app component mounted");

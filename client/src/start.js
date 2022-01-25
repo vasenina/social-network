@@ -7,6 +7,7 @@ import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import * as immutableState from "redux-immutable-state-invariant";
 import reducer from "./redux/reducer.js";
+import { receiveProfile } from "./redux/userProfile/slice.js";
 
 import { init } from "./socket";
 //create store
@@ -24,6 +25,7 @@ fetch("/user-cookie/id.json")
             ReactDOM.render(<Welcome />, document.querySelector("main"));
         } else {
             init(store);
+            store.dispatch(receiveProfile({ id: data.userId }));
             ReactDOM.render(
                 <Provider store={store}>
                     <App user_id={data.userId} />

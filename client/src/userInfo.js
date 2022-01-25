@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 //import { Link } from "react-router-dom";
 import ProfilePic from "./profilePic";
 import FriendBtn from "./friendBtn";
+import Wall from "./wall";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -17,8 +18,10 @@ export default function userInfo() {
         //     state.friendsAndFans.map((friend) => {
         //         if (friend.id == id) return true;
         //     });
-        for (let i = 0; i < state.friendsAndFans; i++) {
-            console.log(state.friendsAndFans[i]);
+        console.log("USE selector");
+
+        for (let i = 0; i < state.friendsAndFans.length; i++) {
+            console.log("inside a loop", state.friendsAndFans[i]);
             if (
                 state.friendsAndFans[i].id == id &&
                 state.friendsAndFans[i].accepted
@@ -26,6 +29,7 @@ export default function userInfo() {
                 return true;
             }
         }
+        console.log("not a friend");
         return false;
     });
 
@@ -112,6 +116,7 @@ export default function userInfo() {
                         })}
                 </div>
             </div>
+            {isAFriend && <Wall />}
         </div>
     );
 }

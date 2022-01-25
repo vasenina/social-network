@@ -14,10 +14,14 @@ export default function findPeople(props) {
     const friendsIds = useSelector((state) => {
         return (
             state.friendsAndFans &&
-            state.friendsAndFans.map((friend) => {
-                console.log(friend);
-                return friend.id;
-            })
+            state.friendsAndFans
+                .filter((friend) => {
+                    console.log(friend);
+                    if (friend.accepted) {
+                        return friend.id;
+                    }
+                })
+                .map((friend) => friend.id)
         );
     });
     // const [friendsIds, setFriendsIds] = useState([4, 2]);
