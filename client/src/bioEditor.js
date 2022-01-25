@@ -16,11 +16,11 @@ export default class BioEditor extends Component {
     }
     textAreaChanged(e) {
         this.setState({ draft: e.target.value }, () => {
-            console.log("user idits bio", this.state.draft);
+            // console.log("user idits bio", this.state.draft);
         });
     }
     changeBio() {
-        console.log("bioEditior: before change bio ", this.props);
+        //  console.log("bioEditior: before change bio ", this.props);
 
         if (this.state.draft == this.props.bio) {
             console.log("no changes");

@@ -10,7 +10,7 @@ export default function Friends() {
     const [myId, setMyid] = useState(1);
     let history = useHistory();
 
-    const [getRequest, response] = useGetRequest("/friends-and-fans");
+    //const [getRequest, response] = useGetRequest("/friends-and-fans");
 
     const fans = useSelector((state) => {
         return (
@@ -48,14 +48,14 @@ export default function Friends() {
 
     //console.log("People", people);
 
-    useEffect(() => {
-        //fetch friends and wannabies
-        console.log("want to see a friendsPage");
-        (async () => {
-            await getRequest();
-            console.log("RESPONSE", response);
-        })();
-    }, []);
+    // useEffect(() => {
+    //     //fetch friends and wannabies
+    //     console.log("want to see a friendsPage");
+    //     (async () => {
+    //         await getRequest();
+    //         console.log("RESPONSE", response);
+    //     })();
+    // }, []);
 
     // console.log("RESPONSE 2", response);
     //console.log("PEOPLE CONSOLE", people);

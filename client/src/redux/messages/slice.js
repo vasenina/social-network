@@ -1,8 +1,8 @@
 export default function chatMessagesReducer(chatMessages = [], action) {
     if (action.type == "chat-messages/receivedMessages") {
-        console.log("ACTION PLAYLOAD", action.payload);
+        // console.log("ACTION PLAYLOAD", action.payload);
         chatMessages = action.payload.messages; //???
-        console.log("chatMessages", chatMessages);
+        // console.log("chatMessages", chatMessages);
     }
     if (action.type === "chat-messages/add") {
         const newChatMessages = [action.playload.msg, ...chatMessages];

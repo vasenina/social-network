@@ -220,3 +220,21 @@ module.exports.addNewMessage = (id, message) => {
     const params = [id, message];
     return db.query(q, params);
 };
+
+module.exports.getTheWallbyId = (id) => {
+    console.log("DB: get a wall");
+    const q = `SELECT wall_messages.id, users.image_url, users.first, users.last, message, wall_messages.created_at
+                FROM wall_messages
+                JOIN users ON (sender_id = users.id)
+                WHERE user_id = $1
+                ORDER BY wall_messages.created_at ASC;`;
+    const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.addNewPostTotheWall = (id, messages, sender_id) => {
+    console.log("DB: add msg to a wall");
+    const q = `INSERT INTO wall_messages (user_id,  message, sender_id) VALUES ($1, $2, $3)  RETURNING id, created_at;`;
+    const params = [id, messages, sender_id];
+    return db.query(q, params);
+};

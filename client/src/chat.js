@@ -17,7 +17,7 @@ export default function Chat() {
             if (textAreaRef.current.value === "") {
                 return;
             }
-            console.log(e.target.value, "message added");
+            // console.log(e.target.value, "message added");
             // e.target.value = "";
             socket.emit("newChatMessage", textAreaRef.current.value);
             textAreaRef.current.value = "";
@@ -28,7 +28,7 @@ export default function Chat() {
             chatContainerRef.current.scrollHeight;
     }, [chatMessages]);
 
-    console.log("type", chatMessages);
+    // console.log("type", chatMessages);
 
     return (
         <>

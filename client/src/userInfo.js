@@ -18,10 +18,10 @@ export default function userInfo() {
         //     state.friendsAndFans.map((friend) => {
         //         if (friend.id == id) return true;
         //     });
-        console.log("USE selector");
+        // console.log("USE selector");
 
         for (let i = 0; i < state.friendsAndFans.length; i++) {
-            console.log("inside a loop", state.friendsAndFans[i]);
+            // console.log("inside a loop", state.friendsAndFans[i]);
             if (
                 state.friendsAndFans[i].id == id &&
                 state.friendsAndFans[i].accepted
@@ -29,11 +29,11 @@ export default function userInfo() {
                 return true;
             }
         }
-        console.log("not a friend");
+        //console.log("not a friend");
         return false;
     });
 
-    console.log("is it a friend?", isAFriend);
+    // console.log("is it a friend?", isAFriend);
 
     useEffect(() => {
         fetch("/api/user/" + id)
@@ -116,7 +116,7 @@ export default function userInfo() {
                         })}
                 </div>
             </div>
-            {isAFriend && <Wall />}
+            {isAFriend && <Wall id={id} />}
         </div>
     );
 }

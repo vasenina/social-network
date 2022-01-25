@@ -53,6 +53,53 @@ otherProfiles.get("/api/friendship/:id", async (req, res) => {
     }
 });
 
+otherProfiles.get("/api/wall/:id", async (req, res) => {
+    console.log("get a wall for:", req.params.id);
+    try {
+        const wallMsg = await db.getTheWallbyId(req.params.id);
+        console.log("wall from DB", wallMsg.rows);
+        res.json({ success: true, messages: wallMsg.rows });
+        return;
+    } catch {
+        (err) => {
+            res.status(500).json({ success: false });
+            console.log("error in getting a wall", err);
+            return;
+        };
+    }
+});
+
+otherProfiles.post("/api/addMsgToWall/:id", async (req, res) => {
+    console.log("new message to the wall", req.body);
+    const { message } = req.body;
+    const sender_id = req.session.userId;
+
+    const newPost = db.addNewPostTotheWall(req.params.id, message, sender_id);
+    const getUserData = db.getUserById(req.session.userId);
+
+    Promise.all([newPost, getUserData])
+        .then((values) => {
+            const newMessage = {
+                id: values[0].rows[0].id,
+                image_url: values[1].rows[0].image_url,
+                first: values[1].rows[0].first,
+                last: values[1].rows[0].last,
+                message: message,
+                created_at: values[0].rows[0].created_at,
+            };
+            res.json({
+                success: true,
+                message: newMessage,
+            });
+            return;
+        })
+        .catch((err) => {
+            res.status(500).json({ success: false });
+            console.log("error in adding a msg to the wall", err);
+            return;
+        });
+});
+
 otherProfiles.post("/api/friendship/:id/:action", async (req, res) => {
     console.log(
         "user wants to change friend relations",
