@@ -1,10 +1,12 @@
 import Graph from "react-graph-vis";
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 //import "./network.css";
 
 export default function Net() {
     const [users, setUsers] = useState([]);
     const [edges, setEdges] = useState([]);
+    let history = useHistory();
     useEffect(() => {
         console.log("NEt useEffect");
 
@@ -41,19 +43,44 @@ export default function Net() {
 
     const options = {
         autoResize: false,
+        nodes: {
+            borderWidth: 2,
+            borderWidthSelected: 3,
+            color: {
+                border: "#1e3a60",
+                hover: {
+                    border: "#f3fa9d",
+                },
+            },
+
+            font: {
+                color: "#1e3a60",
+            },
+        },
         layout: {
             // hierarchical: true,
             improvedLayout: true,
         },
         edges: {
-            color: "#000000",
+            color: "#1e3a60",
         },
         height: "500px",
     };
 
     const events = {
         select: function (event) {
+            console.log("select");
             var { nodes, edges } = event;
+        },
+        doubleClick: (ev) => {
+            // console.log(ev.node.id);
+            console.log("Nodesn", ev.nodes[0]);
+            // if (user.id == props.currentId) {
+            //     console.log(user.id, props.currentId);
+            //     history.replace("/");
+            // } else {
+            history.push("/user/" + ev.nodes[0]);
+            // }
         },
     };
     return (
