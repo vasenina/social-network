@@ -227,7 +227,7 @@ module.exports.getTheWallbyId = (id) => {
                 FROM wall_messages
                 JOIN users ON (sender_id = users.id)
                 WHERE user_id = $1
-                ORDER BY wall_messages.created_at ASC;`;
+                ORDER BY wall_messages.created_at DESC;`;
     const params = [id];
     return db.query(q, params);
 };

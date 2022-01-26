@@ -15,6 +15,7 @@ export default function Chat() {
         // e.preventDefault();
         if (e.key === "Enter") {
             if (textAreaRef.current.value === "") {
+                textAreaRef.current.value = "";
                 return;
             }
             // console.log(e.target.value, "message added");

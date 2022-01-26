@@ -241,6 +241,7 @@ h2 {
     background-color: var(--light-blue-color);
     margin: 32px var(--offset-2);
 }
+
 .user-info-container {
     width: 90%;
     padding: 20px 20px;
@@ -261,6 +262,13 @@ h2 {
     margin-bottom: var(--offset-2);
 }
 
+.wall-area {
+    width: 100%;
+    margin-bottom: var(--offset-2);
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
 .find-people {
     width: 90%;
     padding: 20px 20px;
@@ -268,6 +276,7 @@ h2 {
 textarea {
     display: block;
     resize: none;
+    width: 90%;
 }
 
 .navigation {
@@ -297,11 +306,14 @@ textarea {
     background-color: var(--yellow-color);
     font-size: 16px;
 }
+.bio-editor-textarea {
+    width: 90%;
+}
 
 .message-view {
     display: flex;
     padding: var(--offset);
-    width: 100%;
+    width: 95%;
 }
 .chat-photo-area {
     padding: 0 var(--offset);

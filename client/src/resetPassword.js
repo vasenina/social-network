@@ -112,11 +112,11 @@ export default function ResetPasswords() {
                 </form>
             )}
             {stage === 3 && (
-                <>
+                <div className="center_form">
                     <h2>Success</h2>
 
                     <Link to="/login">Click here to Log in!</Link>
-                </>
+                </div>
             )}
         </>
     );

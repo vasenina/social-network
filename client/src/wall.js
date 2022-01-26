@@ -23,9 +23,14 @@ export default function Wall(props) {
     }, []);
 
     const keyCheck = (e) => {
+        //console.log("message", textAreaRef);
         // e.preventDefault();
         if (e.key === "Enter") {
-            if (textAreaRef.current.value === "") {
+            if (
+                textAreaRef.current.value === "" ||
+                textAreaRef.current.value === "\n"
+            ) {
+                textAreaRef.current.value = "";
                 return;
             }
             // console.log(e.target.value, "message added");
@@ -51,7 +56,7 @@ export default function Wall(props) {
     };
 
     return (
-        <>
+        <div className="wall-area">
             <textarea
                 ref={textAreaRef}
                 onKeyDown={keyCheck}
@@ -96,6 +101,6 @@ export default function Wall(props) {
                     );
                 })}
             {wallMessages.length <= 0 && <div>...No Messages here...</div>}
-        </>
+        </div>
     );
 }

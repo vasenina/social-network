@@ -68,7 +68,7 @@ export default class BioEditor extends Component {
                         <textarea
                             defaultValue={this.props.bio}
                             rows="4"
-                            cols="50"
+                            className="bio-editor-textarea"
                             maxLength="300"
                             onChange={this.textAreaChanged}
                         />
