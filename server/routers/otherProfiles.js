@@ -169,4 +169,21 @@ otherProfiles.post("/api/friendship/:id/:action", async (req, res) => {
     }
 });
 
+otherProfiles.get("/api/get-network", (req, res) => {
+    console.log("user wants to see a network");
+    const users = db.getUsersNetwork();
+    const friendships = db.getFriendshipsNetwork();
+    Promise.all([users, friendships])
+        .then((values) => {
+            res.json({
+                success: true,
+                users: values[0].rows,
+                edges: values[1].rows,
+            });
+        })
+        .catch((err) => {
+            console.log("erro in network", err);
+        });
+});
+
 module.exports.otherProfiles = otherProfiles;

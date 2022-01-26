@@ -8,6 +8,7 @@ import FindPeople from "./findPeople";
 import UserInfo from "./userInfo";
 import Friends from "./friends";
 import Chat from "./chat";
+import Net from "./net";
 
 export default class App extends Component {
     constructor(props) {
@@ -113,6 +114,9 @@ export default class App extends Component {
                             </Route>
                             <Route path="/users">
                                 <FindPeople currentId={this.props.user_id} />
+                            </Route>
+                            <Route path="/net">
+                                <Net />
                             </Route>
                             <Route path="/user/:id">
                                 <UserInfo />

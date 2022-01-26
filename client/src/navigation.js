@@ -26,6 +26,9 @@ export default function Navigation(props) {
         if (path === "/chat") {
             setCurrentTab({ ...tabs, chat: " nav-selected" });
         }
+        if (path === "/net") {
+            setCurrentTab({ ...tabs, net: " nav-selected" });
+        }
     }, [clicker]);
     return (
         <div className="navigation">
@@ -64,6 +67,15 @@ export default function Navigation(props) {
                         onClick={() => setClicker(clicker + 1)}
                     >
                         chat
+                    </li>
+                </Link>
+
+                <Link to="/net">
+                    <li
+                        className={`nav_item ${currentTab["net"]}`}
+                        onClick={() => setClicker(clicker + 1)}
+                    >
+                        Net
                     </li>
                 </Link>
             </ul>

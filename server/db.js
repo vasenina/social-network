@@ -238,3 +238,19 @@ module.exports.addNewPostTotheWall = (id, messages, sender_id) => {
     const params = [id, messages, sender_id];
     return db.query(q, params);
 };
+
+module.exports.getUsersNetwork = () => {
+    const q = `SELECT DISTINCT first, last, users.id, image_url
+        FROM friendships
+        JOIN users ON (accepted = TRUE AND users.id  = friendships.sender_id) OR 
+        ( accepted = TRUE AND users.id =friendships.recipient_id);`;
+
+    const params = [];
+    return db.query(q, params);
+};
+
+module.exports.getFriendshipsNetwork = () => {
+    const q = `SELECT sender_id, recipient_id FROM friendships WHERE accepted = true;`;
+    const params = [];
+    return db.query(q, params);
+};
