@@ -36,10 +36,15 @@ export default function Net() {
                 }
             });
     }, []);
+
+    console.log("Net users", users);
+    console.log("Net edges", edges);
     const graph = {
         nodes: users,
         edges: edges,
     };
+
+    console.log("GRAPH", graph);
 
     const options = {
         autoResize: false,
